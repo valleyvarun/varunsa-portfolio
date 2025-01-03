@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- header common to all pages-->
+    <header class="header">
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>        
+        <div class="logo">
+            <a href="index.html"><img src="images/logo psd.png" alt="logo"></a>
+        </div>
+    </header>
+    <!-- end of header-->
+
+    <!--SIDE BAR-->
+    <nav class="sidebar" id="sidebar">
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+
+    <!--MAIN CONTENT OF PAGE-->
+    <main class="content-container">
+
+        <div class="inner-container">
+
+            <div class="profile-section">
+
+                <div class="profile-photo">
+                    <img src="images/cv profile_psd.png" alt="Profile Photo">
+                </div>
+
+                <div class="profile-text">
+                    <h1>Hello there! I am Varun.</h1>
+                    <p id="profile-paragraph"></p>
+                    <!-- Empty paragraph for dynamic content -->
+                </div>
+            </div>
+    
+            <div class="main-pdf-view"></div>
+        </div>
+
+        <div class="bottom-container">
+                <a href="portfolio.html" class="thumbnail-container">Portfolio</a>
+                <a href="research.html" class="thumbnail-container">Research</a>
+                <a href="#" class="thumbnail-container">Essays</a>
+                <a href="#" class="thumbnail-container">CV</a>
+                <a href="#" class="thumbnail-container">Artwork</a>
+                <a href="#" class="thumbnail-container">Computation</a>
+
+                <div class="links-container">
+                    <div class="link-item">
+                        <a href="mailto:valley@gmail.com">
+                        <button class="logo-button">Logo 1</button>
+                        <span class="link-text">Email: valleyvarun@gmail.com</span>
+                        </a>
+                    </div>
+                    <div class="link-item">
+                        <a href="https://www.linkedin.com/in/varunsa-spab/">
+                        <button class="logo-button">Logo 2</button>
+                        <span class="link-text">linkedin</span>
+                        </a>
+                    </div>
+                    <div class="link-item">
+                        <a href="https://issuu.com/varunsa">
+                        <button class="logo-button">Logo 3</button>
+                        <span class="link-text">issuu</span>
+                        </a>
+                    </div>
+                    <div class="link-item">
+                        <a href="https://www.instagram.com/varun.sa_/">
+                        <button class="logo-button">Logo 4</button>
+                        <span class="link-text">instagram</span>
+                        </a>
+                    </div>
+                    <div class="link-item">
+                        <a href="https://github.com/valleyvarun">
+                        <button class="logo-button">Logo 5</button>
+                        <span class="link-text">github</span>
+                        </a>
+                    </div>
+                </div>
+                
+                
+        </div>
+
+    </main>
+    
+
+
+    <script src="script.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js" integrity="sha512-Z8CqofpIcnJN80feS2uccz+pXWgZzeKxDsDNMD/dJ6997/LSRY+W4NmEt9acwR+Gt9OHN0kkI1CTianCwoqcjQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>
