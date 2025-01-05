@@ -21,13 +21,6 @@ if (window.location.pathname.includes('index.html')) {
   url = 'pdfs/project-covers.pdf'; 
 }
 
-// Load the PDF
-getDocument(url).promise.then(pdfDoc_ => {
-  pdfDoc = pdfDoc_;
-  loadingIndicator.style.display = 'none'; // Hide loading indicator
-  renderPage(pageNum);
-});
-
 // download pdf file //
 
 // Add event listener to the download button
@@ -166,3 +159,10 @@ pdfjsLib.getDocument(url).promise.then(pdfDoc_ => {
 // Button Events
 document.querySelector('#prev-page').addEventListener('click', showPrevPage);
 document.querySelector('#next-page').addEventListener('click', showNextPage);
+
+
+// Load the PDF
+getDocument(url).promise.then(pdfDoc_ => {
+  pdfDoc = pdfDoc_;
+  loadingIndicator.style.display = 'none'; // Hide loading indicator
+});
