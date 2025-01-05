@@ -3,3 +3,10 @@ https://valleyvarun.github.io/varunsa-portfolio/
 
 
 vv backspace
+
+rm filename.ext
+rm file1.ext file2.ext
+rm -r directory_name
+git add .
+git commit -m "Deleted unnecessary files and folders"
+git push origin main
