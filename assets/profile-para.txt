@@ -1,3 +1,7 @@
-I am an aspiring architect with a strong passion for computational design and technology-driven solutions. As a final-year architecture student at the School of Planning and Architecture, Bhopal, I have dedicated my academic journey to exploring the intersection of art, science, and innovation in design.
+I am an aspiring architect with a strong enthusiasm for developing digital tools for design, particularly focusing on the synergy between BIM and AI.
 
-My experience spans working on diverse projects, including designing spaces for industrial architecture, research facilities, and laboratories, which I honed during my internship at Studio Archnovate. I am also deeply fascinated by artificial intelligence, parametric modeling, and advanced tools like Grasshopper and Python, which have become central to my design approach.
+I have dedicated my academic journey to exploring the intersection of art, science, and technology. My experience spans working on diverse projects, including designing spaces for industrial architecture, research facilities, and factories. 
+
+My final-year B.Arch research thesis is on architecture for semiconductor electronics FABs, where I explore their functionality, integrating aesthetics, and the Human experience at such facilities.
+
+I hope you like my work :)
