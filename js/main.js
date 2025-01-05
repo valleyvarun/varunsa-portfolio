@@ -4,6 +4,10 @@ import { getDocument, GlobalWorkerOptions } from '../js/pdf.mjs';
 // Specify the worker script
 GlobalWorkerOptions.workerSrc = '../js/pdf.worker.mjs';
 
+// Show loading indicator
+const loadingIndicator = document.getElementById('loading-indicator');
+loadingIndicator.style.display = 'block';
+
 
 //which pdf file to load based on the page
 let url;
@@ -17,6 +21,12 @@ if (window.location.pathname.includes('index.html')) {
   url = 'pdfs/project-covers.pdf'; 
 }
 
+// Load the PDF
+getDocument(url).promise.then(pdfDoc_ => {
+  pdfDoc = pdfDoc_;
+  loadingIndicator.style.display = 'none'; // Hide loading indicator
+  renderPage(pageNum);
+});
 
 // download pdf file //
 
@@ -33,9 +43,9 @@ document.getElementById('download-pdf').addEventListener('click', () => {
     link.href = '../pdfs/portfolio.pdf';
     link.download = 'portfolio.pdf';
   } else {
-    // Default PDF file or handle other pages
-    link.href = 'default.pdf'; // Replace with your default PDF file path
-    link.download = 'default.pdf';
+    // Default PDF file
+    link.href = 'pdfs/project-covers.pdf';
+    link.download = 'project-covers.pdf';
   }
   
   // Programmatically click the link to trigger the download
