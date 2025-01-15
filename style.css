@@ -422,3 +422,28 @@ body {
 body.portfolio-page, html.portfolio-page {
     overflow: hidden;
 }
+
+
+
+
+
+
+
+/* Research page styles --------------------------------*/
+.content-container-iframe {
+    position: absolute; /* Positioned relative to the parent container */
+    top: 70px; /* Start from where the header ends */
+    left: 0; /* Align with the left edge of the screen */
+    width: 100vw; /* Full width of the screen */
+    height: calc(100vh - 70px); /* Height of the screen minus the header height */
+    display: flex; /* Enable Flexbox for alignment */
+    flex-direction: row; /* Arrange items from left to right */
+    overflow: auto; /* Enable scrolling if content overflows */
+    padding: 0 30px 30px 30px; /* 30px right, left, and bottom */
+}
+
+.iframe-container {
+    width: 100%; /* Full width of the container */
+    height: 100%; /* Full height of the container */
+    border: none; /* Remove default iframe border */
+}
