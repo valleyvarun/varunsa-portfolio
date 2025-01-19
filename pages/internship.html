@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../style.css">
+
+</head>
+
+<body>
+
+    <!-- header common to all pages-->
+    <header class="header">
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>        
+        <div class="logo">
+            <a href="../index.html"><img src="../images/logo psd.png" alt="logo"></a>
+        </div>
+    </header>
+    <!-- end of header-->
+
+    <!--SIDE BAR-->
+    <nav class="sidebar" id="sidebar">
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+
+    <!--MAIN CONTENT OF PAGE-->
+    <main class="content-container-iframe">
+
+        <iframe class="iframe-container" src="../pdfs/internship.pdf#zoom=60" type="application/pdf"></iframe>
+        <p class="work-in-progress">alt+scroll to zoom<br><br><--   --></p>
+
+    </main>
+    
+
+    <!-- Scripts -->
+    <script src="../js/pdf.mjs"></script>
+    <script src="../script.js"></script>
+    <script type="module" src="../js/main.js"></script>
+
+</body>
+</html>

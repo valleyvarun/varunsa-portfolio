@@ -447,3 +447,11 @@ body.portfolio-page, html.portfolio-page {
     height: 100%; /* Full height of the container */
     border: none; /* Remove default iframe border */
 }
+
+.work-in-progress {
+    margin-top: 20px; /* Add some space above the text */
+    margin-left: 20px;
+    font-size: 14px; /* Adjust font size as needed */
+    color: white; /* Text color */
+    text-align: center; /* Center the text */
+}

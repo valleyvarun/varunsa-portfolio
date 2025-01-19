@@ -16,6 +16,8 @@ if (window.location.pathname.includes('index.html')) {
   url = 'pdfs/project-covers.pdf';
 } else if (window.location.pathname.includes('portfolio.html')) {
   url = '../pdfs/portfolio.pdf';
+} else if (window.location.pathname.includes('internship.html')) {
+  url = '../pdfs/internship.pdf';
 } else {
   // Default PDF file or handle other pages
   url = 'pdfs/project-covers.pdf'; 
@@ -35,13 +37,16 @@ document.getElementById('download-pdf').addEventListener('click', () => {
   } else if (window.location.pathname.includes('portfolio.html')) {
     link.href = '../pdfs/portfolio.pdf';
     link.download = 'portfolio.pdf';
+  } else if (window.location.pathname.includes('internship.html')) {
+    link.href = '../pdfs/internship.pdf';
+    link.download = 'internship.pdf';
   } else {
     // Default PDF file
     link.href = 'pdfs/project-covers.pdf';
     link.download = 'project-covers.pdf';
   }
   
-  // Programmatically click the link to trigger the download
+  // Trigger the download
   link.click();
 });
 
