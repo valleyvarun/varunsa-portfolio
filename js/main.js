@@ -51,29 +51,7 @@ document.getElementById('download-pdf').addEventListener('click', () => {
 });
 
 
-document.addEventListener('DOMContentLoaded', () => {
-  let container;
-
-  if (window.location.pathname.includes('index.html')) {
-    container = document.querySelector('.pdf-viewer-box');
-  } else if (window.location.pathname.includes('portfolio.html')) {
-    container = document.querySelector('.portfolio-container');
-  }
-
-  if (container) {
-    const updateHeight = () => {
-      const width = container.offsetWidth;
-      const height = width * (9 / 16);
-      container.style.setProperty('--calculated-height', `${height}px`);
-    };
-
-    // Initial height calculation
-    updateHeight();
-
-    // Update height on window resize
-    window.addEventListener('resize', updateHeight);
-  }
-});
+// CSS now controls layout via viewport units; no JS height calculations needed
 
 
 

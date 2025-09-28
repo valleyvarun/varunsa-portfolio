@@ -1,457 +1,276 @@
-/* General Styles */
+/* ===== Base reset & variables ===== */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
 body {
-    margin: 0;
     font-family: 'IBM Plex Mono', monospace;
-    background-color: black;
-    color: white;
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-    box-sizing: border-box; /* Ensure consistent box model */
+    background: #000;
+    color: #fff;
 }
 
-/* Loading Indicator Styles */
+:root {
+    /* Header sizing (constant logo height) */
+    --logo-h-px: 48px;
+    --header-pad-y: 6px;
+    --header-h: calc(var(--logo-h-px) + (var(--header-pad-y) * 2));
+
+    /* Common spacing */
+    --radius: 12px;
+    /* Extra space below header to lower the columns a little */
+        --content-offset-top: 20px;
+}
+
+/* ===== Loading indicator ===== */
 #loading-indicator {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 20px;
-    border-radius: 5px;
-    font-size: 18px;
+    background: rgba(0,0,0,0.8);
+    color: #fff;
+    padding: 16px 20px;
+    border-radius: 10px;
+    font-size: 16px;
     z-index: 1000;
 }
 
-
-
-/* Apply box-sizing globally */
-*, *::before, *::after {
-    box-sizing: border-box;
-}
-
-/* Header Styles */
-.header {
-    background-color: #060011;
+/* ===== Fixed header with centered logo ===== */
+.site-header {
     position: fixed;
-    width: 100%;
-    top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    height: 70px;
-    z-index: 1000; /* Ensure it stays above the sidebar */
+    top: 0; left: 0; right: 0;
+    height: var(--header-h);
+    background: #000;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000;
+    box-shadow: 0 6px 16px rgba(128,128,128,0.25);
+    padding: var(--header-pad-y) 0;
 }
+.site-header__inner { height: 100%; display: flex; align-items: center; justify-content: center; }
+.site-logo { display: inline-flex; height: 100%; align-items: center; }
+.site-logo img { height: var(--logo-h-px); width: auto; display: block; }
 
-/* Logo Styles */
-.logo {
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    flex-grow: 1;
-    color: black;
-    height: 100%;
-    padding-top: 4px;
-    
-}
-
-.logo img {
-    height: 85%;
-}
-
-/* Hamburger Button */
-.hamburger {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 20px;
-    cursor: pointer;
-    position: absolute;
-    left: 20px;
-    z-index: 1100; /* Ensure it stays above the sidebar */
-}
-
-.hamburger span {
-    display: block;
-    height: 4px;
-    background-color: white;
-    border-radius: 2px;
-}
-
-/* Sidebar Styles */
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0; /* Keep it aligned with the viewport */
-    width: 250px;
-    height: 100%;
-    background-color: #222;
-    color: white;
-    padding: 20px; /* General padding for the entire sidebar */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-    transform: translateX(-100%); /* Completely hidden */
-    transition: transform 0.3s ease; /* Smooth slide-in/out effect */
-    z-index: 100; /* Behind the hamburger button */
-}
-
-.sidebar.show {
-    transform: translateX(0); /* Slide into view */
-}
-
-/* Sidebar Content Spacing */
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
-    margin-top: 10vh; /* Space below the hamburger */
-}
-
-.sidebar li {
-    margin: 20px 0;
-}
-
-.sidebar a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-}
-
-.sidebar a:hover {
-    text-decoration: underline;
-}
-
-
-
-
-/* Main Outer Container */
+/* Main content sits below the fixed header, with a little extra offset */
 .content-container {
-    top: 80px;
-    position: relative; /* Ensure it remains in normal flow */
-    width: 100vw; /* Full width of the screen */
-    min-height: 100vh; /* At least full viewport height */
-    background-color: black; /* Black background for the main container */
-    display: block;
-    justify-content: flex-start; /* Align inner container to the left */
-    align-items: flex-start; /* Align inner container to the top */
+    margin-top: calc(var(--header-h) + var(--content-offset-top));
+    min-height: calc(100vh - var(--header-h) - var(--content-offset-top));
 }
 
-/* Inner Container */
-.inner-container {
-    position: relative;
-    width: 100vw; /* Full width of the viewport */
-    background-color: black; /* Background for the inner container */
-    display: flex; /* Enable Flexbox for horizontal alignment */
-    justify-content: space-between; /* Space between the profile section and PDF viewer */
-    align-items: flex-start; /* Align items to the top */
-    box-sizing: border-box; /* Include padding in width/height calculations */
+/* ===== Single container across devices ===== */
+.pc-container { display: block; }
+
+/* ===== Columns (equal width, auto height, constant gap) ===== */
+.columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px; /* constant small buffer */
+    padding: 8px 16px 16px 16px;
+}
+.column {
+    background: #000; /* solid black */
+    border-radius: var(--radius);
+    height: auto;
+    min-height: 10vh; /* visible placeholder until content is added */
 }
 
+/* Profile blocks inside first column */
+.profile-block { padding: 0; }
+.profile-block img { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+.profile-block-below { margin-top: 8px; padding: 12px; border-radius: var(--radius); background: rgba(255,255,255,0.04); }
+.profile-text { line-height: 1.5; font-size: 14px; }
+.profile-text p { margin: 0 0 10px 0; }
+.profile-text p:last-child { margin-bottom: 0; }
 
-/* Profile Section Styles */
-.profile-section {
+/* Desktop (landscape) column counts by aspect ratio */
+@media (max-aspect-ratio: 5/4) {
+    /* Slightly wide but near-square landscape -> 2 columns */
+    .pc-container .columns { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-aspect-ratio: 4/3) {
+    /* Standard wide -> 4 columns */
+    .pc-container .columns { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (min-aspect-ratio: 15/9) {
+    /* Very wide (≈15:9 or wider) -> 5 columns */
+    .pc-container .columns { grid-template-columns: repeat(5, 1fr); }
+}
+
+/* ===== PDF viewer styles kept ===== */
+.pdf-viewer-box { position: relative; width: 100%; background: #000; border-radius: var(--radius); justify-content: center; align-items: center; }
+.pdf-control-bar {
+    position: relative; margin-top: 8px; width: 100%; height: 50px; background: rgba(255,255,255,0.06);
+    border-radius: var(--radius); box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    display: flex; justify-content: space-between; align-items: center;
+}
+.pdf-control-bar .left-section, .pdf-control-bar .right-section { height: 100%; display: flex; align-items: center; gap: 8px; }
+.control-button {
+    background: #fff; height: 75%; color: #000; border: none; font-weight: bold; padding: 8px 12px; margin: 0 8px;
+    border-radius: var(--radius); cursor: pointer; transition: transform 0.2s ease, background-color 0.3s ease; display: flex; align-items: center; justify-content: center;
+}
+.control-button span { font-size: 14px; font-weight: normal; }
+.control-button:hover { background: #ddd; transform: scale(1.05); }
+.control-button:active { transform: scale(0.95); }
+.pdf-viewer { max-width: 100%; max-height: 100%; width: auto; height: auto; }
+
+/* Thumbnails grid under the PDF viewer */
+.thumbs-grid {
+    margin-top: 8px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+.thumb {
+    background: rgba(255,255,255,0.04);
+    border-radius: var(--radius);
+    overflow: hidden;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    background-color: black; /* Light grey background for the section */
-    padding: 15px; /* Add padding inside the profile section */
-    border-radius: 5px; /* Optional: Round the corners */
-    width: 37vw; /* Adjusted width for consistency */
-    margin-left: 7vw;
-    margin-top: 2vw;
-    margin-bottom: 2vw;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 120ms ease, box-shadow 200ms ease, background-color 200ms ease;
 }
-
-/* Profile Photo Styles */
-.profile-photo {
-    width: 150px;
-    height: 150px;
-    background-color: darkgrey; /* Dark grey for the placeholder square */
-    border-radius: 5px; /* Optional: Round the corners */
-    margin-right: 20px; /* Space between the photo and the text */
-    flex-shrink: 0; /* Prevent resizing in flex container */
-    overflow: hidden; /* Ensures the image stays within the square */
+.thumb img {
+    display: block;
+    width: 100%;
+    height: auto;
+    pointer-events: none; /* let the parent receive the click */
+}
+.thumb:hover,
+.thumb:focus-visible {
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+    background: rgba(255,255,255,0.06);
+    outline: none;
+}
+.thumb:active {
+    transform: scale(0.97);
+}
+.thumb--placeholder {
+    color: #aaa;
+    font-size: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.profile-photo img {
+/* Hide thumbnails in maximized overlay for a clean expanded view */
+.pdf-pane.maximized .thumbs-grid { display: none; }
+
+/* PDF pane that spans two columns on multi-column layouts */
+.pdf-pane {
+    grid-column: span 2;
+}
+.pdf-viewer-embed {
+    display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensures the image fills the square without distortion */
-    border-radius: 5px; /* Match the parent's rounded corners */
+    border: 0;
+    border-radius: var(--radius);
+    background: #111;
 }
 
-
-/* Profile Text Styles */
-.profile-text h1 {
-    margin: 0;
-    font-size: 17px;
-    color: white; /* Heading text color */
-    font-weight: lighter;
-}
-
-.profile-text p {
-    margin: 10px 0 0;
-    color: white; /* Paragraph text color */
-    font-size: 13px;
-    line-height: 1.5;
-    text-align: justify;
-}
-
-/* Main Page PDF Viewer */
-.main-pdf-view {
-    width: 40vw; /* Set width to 50% of the viewport width */
-    height: calc((40vw * 9 / 16) + 2.5vw); /* Maintain a 16:9 aspect ratio */
-    background-color: darkgrey;
-    border-radius: 5px; /* Optional rounded corners */
-    flex-shrink: 0; /* Prevent resizing */
-    margin: 2vw 10vw 2vw 5vw;
-}
-
-
-
-
-/* Bottom Container Styles */
-.bottom-container {
-    width: 100vw; /* Full width of the viewport */
-    position: relative;
-    background-color: black; /* Dark grey background */
-    padding-left: 4vw; /* Add padding for spacing inside the container */
-    padding-right: 3vw;
-    display: flex; /* Enable Flexbox for horizontal alignment */
-    flex-wrap: wrap; /* Allow wrapping to a new line if needed */
-    justify-content: flex-start; /* start off on left side */
-    box-sizing: border-box; /* Include padding in width calculations */
-}
-
-/* Thumbnail Container Styles */
-.thumbnail-container {
-    height: 18vh; /* Fixed height of 15% of the viewport height */
-    width: calc(15vh * 0.707); /* A4 aspect ratio width = height * 0.707 */
-    background-color: black; /* Background for thumbnails */
-    margin: 2vw;
-    display: flex; /* Center the text inside */
-    flex-direction: column;
-    align-items: center; /* Center vertically */
-    justify-content: center; /* Center horizontally */
-    font-size: 12px; /* Font size for text */
-    color: black; /* Text color */
-    border-radius: 5px; /* Optional: Rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow */
-}
-
-
-/* Hover and Active Effects */
-.thumbnail-container:hover {
-    background-color: #ddd; /* Change background on hover */
-    transform: scale(1.05); /* Slightly enlarge */
-}
-
-.thumbnail-container:active {
-    transform: scale(0.95); /* Slightly shrink when clicked */
-}
-
-.thumbnail-container h1 {
-    font-size: 12px;
-    color: white;
-}
-
-.thumbnail {
-    height: 15vh;
-    object-fit: cover;
-    margin-bottom: 1px;
-}
-
-
-
-
-
-
-
-/* Links Container Styles */
-.links-container {
-    position: absolute; /* Positioned relative to the parent container */
-    right: 8vw; /* Align to the right edge of the parent container */
-    top: 0; /* Align with the top edge of the parent container */
-    height: 100%; /* Match the height of the parent container */
-    width: 8vw; /* Adjust width as needed */
-    display: flex; /* Enable Flexbox for alignment */
-    flex-direction: column; /* Stack buttons vertically */
-    align-items: flex-start; /* Align buttons to the left */
-    box-sizing: border-box; /* Include padding in width/height calculations */
-}
-
-/* Link Item Styles */
-.link-item {
-    display: flex; /* Align children horizontally */
-    align-items: center; /* Center children vertically */
-    width: 100%; /* Full width of the container */
-    height: 20%; /* Adjust height as needed */
-}
-
-.logo-image {
-    height: 70%;
-}
-
-.link-item span {
-    margin-left: 10px;
-    color: white;
-    font-size: 12px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* pdf viewer page styles --------------------------------*/
+/* Maintain 16:9 aspect ratio for the PDF viewer area */
 .pdf-viewer-box {
     position: relative;
     width: 100%;
-    height: var(--calculated-height, auto);
-    background-color: black;
-    border-radius: 5px;
-    justify-content: center;
-    align-items: center;
-}
-
-
-.pdf-control-bar {
-    position: relative;
-    margin-top: 3px;
-    width: 100%;
-    height: 50px;
-    background-color: darkgray;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-
-    display: flex; /* Enable Flexbox */
-    justify-content: space-between; /* Space between the left and right sections */
-    align-items: center; /* Align items vertically */
-}
-
-/* Ensure the buttons are grouped correctly */
-.pdf-control-bar .left-section {
-    height: 100%;
-    display: flex; /* Flexbox for left alignment */
-    align-items: center; /* Align items vertically */
-    gap: 10px; /* Add some spacing between buttons if needed */
-}
-
-.pdf-control-bar .right-section {
-    height: 100%;
-    display: flex; /* Flexbox for right alignment */
-    align-items: center; /* Align items vertically */
-    gap: 10px; /* Add spacing between the buttons */
-}
-
-
-/* Control Buttons */
-.control-button {
-    background-color: white; /* Button background */
-    height: 75%;
-    position: relative;
-    color: black; /* Text color */
-    border: none; /* Remove default border */
-    font-size: 20px; /* Adjust icon size */
-    font-weight: bold;
-    padding: 10px 15px; /* Button padding */
-    margin: 0 10px; /* Space between buttons */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: transform 0.2s ease, background-color 0.3s ease; /* Hover effect */
-    display: flex; /* Enable Flexbox */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-}
-
-.control-button span{
-    font-size: 12px;
-    font-weight: normal;
-}
-
-/* Button Hover and Active States */
-.control-button:hover {
-    background-color: #ddd; /* Light background on hover */
-    transform: scale(1.1); /* Slightly enlarge */
-}
-
-.control-button:active {
-    transform: scale(0.95); /* Slightly shrink when clicked */
-}
-
-
-/* Canvas Styles */
-.pdf-viewer {
-    max-width: 100%; /* Ensures the canvas doesn't overflow the rectangle */
-    max-height: 100%; /* Ensures the canvas fits within the rectangle */
-}
-
-/* Portfolio Container */
-.portfolio-container {
-    margin-top: 0;
-    margin-left: 15vw;
-    width: 70vw;
-    height: calc((70vw * 9 / 16) + 2.5vw); /* Maintain a 16:9 aspect ratio */
-    display: flex; /* Enable Flexbox */
-    justify-content: center; /* Center horizontally */
-    background-color: black;
-    flex-direction: column;
-}
-
-/* Disable scrolling for portfolio.html */
-body.portfolio-page, html.portfolio-page {
+    aspect-ratio: 16 / 9;
     overflow: hidden;
 }
 
+/* Maximized overlay mode for the entire PDF pane (viewer + controls) */
 
-
-
-
-
-
-/* Research page styles --------------------------------*/
-.content-container-iframe {
-    position: absolute; /* Positioned relative to the parent container */
-    top: 70px; /* Start from where the header ends */
-    left: 0; /* Align with the left edge of the screen */
-    width: 100vw; /* Full width of the screen */
-    height: calc(100vh - 70px); /* Height of the screen minus the header height */
-    display: flex; /* Enable Flexbox for alignment */
-    flex-direction: row; /* Arrange items from left to right */
-    overflow: auto; /* Enable scrolling if content overflows */
-    padding: 0 30px 30px 30px; /* 30px right, left, and bottom */
+.pdf-pane.maximized {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.35); /* subtle backdrop */
+    padding: 4vh 3vw;
 }
 
-.iframe-container {
-    width: 100%; /* Full width of the container */
-    height: 100%; /* Full height of the container */
-    border: none; /* Remove default iframe border */
+.pdf-pane.maximized .column,
+.pdf-pane.maximized .pdf-pane { background: transparent; }
+
+.pdf-pane.maximized .pdf-viewer-box {
+    width: min(92vw, calc((100vh - 8vh - 58px) * 16 / 9));
+    aspect-ratio: 16 / 9; /* keep same aspect ratio */
 }
 
-.work-in-progress {
-    margin-top: 20px; /* Add some space above the text */
-    margin-left: 20px;
-    font-size: 14px; /* Adjust font size as needed */
-    color: white; /* Text color */
-    text-align: center; /* Center the text */
+.pdf-pane.maximized .pdf-control-bar {
+    width: min(92vw, calc((100vh - 8vh - 58px) * 16 / 9));
 }
+
+
+/* Prevent page scroll when overlay is open */
+body.no-scroll { overflow: hidden; }
+
+/* Orientation hint toast */
+#orientation-hint {
+    display: none;
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.85);
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    z-index: 2500;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+}
+
+/* If only 2 columns available, still spans both; more columns -> remains 2-wide */
+@media (max-aspect-ratio: 5/4) {
+    .pc-container .columns { grid-template-columns: repeat(2, 1fr); }
+    .pdf-pane { grid-column: span 2; }
+}
+
+/* Optional helper for iframe-based PDF pages */
+.content-container-iframe { position: absolute; top: var(--header-h); left: 0; width: 100vw; height: calc(100vh - var(--header-h)); display: flex; flex-direction: row; overflow: auto; padding: 0 16px 16px 16px; }
+.iframe-container { width: 100%; height: 100%; border: none; }
+.work-in-progress { margin-top: 16px; margin-left: 16px; font-size: 14px; color: #fff; text-align: center; }
+
+/* ===== Separate overlay PDF viewer ===== */
+#overlay-viewer {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    background: rgba(0,0,0,0.85);
+}
+#overlay-viewer.show { display: block; }
+.overlay-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4vh 3vw;
+}
+.overlay-toolbar {
+    width: min(92vw, calc((100vh - 8vh - 56px) * 16 / 9));
+    height: 50px;
+    background: rgba(255,255,255,0.06);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+.overlay-toolbar .left, .overlay-toolbar .right { display: flex; align-items: center; gap: 8px; height: 100%; }
+.overlay-canvas-box {
+    width: min(92vw, calc((100vh - 8vh - 56px) * 16 / 9));
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.overlay-canvas-box canvas { width: 100%; height: auto; display: block; }

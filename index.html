@@ -17,151 +17,85 @@
 
 <body>
 
-    <!-- Loading Indicator -->
-    <div id="loading-indicator" style="display: none;">Loading...</div>
-
-    <!-- header common to all pages-->
-    <header class="header">
-        <div class="hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>        
-        <div class="logo">
-            <a href="index.html"><img src="images/logo psd.png" alt="logo"></a>
+    <!-- Fixed header with centered logo -->
+    <header class="site-header" role="banner">
+        <div class="site-header__inner">
+            <a class="site-logo" href="index.html" aria-label="VSA Home">
+                <img src="images/logo psd.png" alt="VSA logo" />
+            </a>
         </div>
     </header>
-    <!-- end of header-->
+    
 
-    <!--SIDE BAR-->
-    <nav class="sidebar" id="sidebar">
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-
-
-    <!--MAIN CONTENT OF PAGE-->
+    <div id="loading-indicator" role="status" aria-live="polite">loading....</div>
+    <div id="orientation-hint" aria-live="polite">For a better view, rotate your phone to landscape.</div>
     <main class="content-container">
-
-        <div class="inner-container">
-
-            <div class="profile-section">
-
-                <div class="profile-photo">
-                    <img src="images/cv profile_psd.png" alt="Profile Photo">
-                </div>
-
-                <div class="profile-text">
-                    <h1>Hello there! I am Varun.</h1>
-                    <p id="profile-paragraph"></p>
-                    <!-- Empty paragraph for dynamic content -->
-                </div>
-            </div>
-
-    
-
-            <!-- project covers pdf -->
-            <div class="main-pdf-view">
-
-                <div class="pdf-viewer-box">
-                    <!-- PDF Viewer Content Goes Here -->
-                    <canvas class="pdf-viewer" id="pdf-render"></canvas>
-                </div>
-
-                <div class="pdf-control-bar">
-                     <!-- Left Section -->
-                    <div class="left-section">
-                        <button class="control-button" id="download-pdf" title="Download PDF">
-                         <span>Download&nbsp;</span> ⤓ </button>
+        <!-- PC layout: shown when width > height (landscape) -->
+        <section class="pc-container" aria-label="Desktop layout">
+            <div class="columns">
+                <div class="column">
+                    <div class="profile-block">
+                        <img src="images/cv profile_psd.png" alt="CV profile" />
                     </div>
-    
-                     <!-- Right Section -->
-                    <div class="right-section">
-                        <span class="page-info"> Page <span id="page-num">
-                        </span> of <span id="page-count"></span>
-                        </span>
-                        <button class="control-button" id="prev-page" title="Previous Page">←</button>
-                        <button class="control-button" id="next-page" title="Next Page">→</button>
-                        <button class="control-button" id="fullscreen-btn" title="Fullscreen">⛶</button>
+                    <div class="profile-block-below">
+                        <div id="profile-text" class="profile-text"></div>
                     </div>
                 </div>
-                
+                <!-- PDF viewer spanning columns 2 and 3 (pdf.js) -->
+                <div class="column pdf-pane">
+                    <div class="pdf-viewer-box">
+                        <canvas id="pdf-canvas" class="pdf-viewer"></canvas>
+                    </div>
+                    <div class="pdf-control-bar">
+                        <div class="left-section">
+                            <button class="control-button" id="pdf-prev"><span>&lt;</span></button>
+                            <span id="pdf-page-info"><span id="pdf-page-num">1</span> / <span id="pdf-page-count">—</span></span>
+                            <button class="control-button" id="pdf-next"><span>&gt;</span></button>
+                        </div>
+                        <div class="right-section">
+                            <button class="control-button" id="pdf-fullscreen" title="Fullscreen" aria-label="Fullscreen"><span>⛶</span></button>
+                        </div>
+                    </div>
+                    <div class="thumbs-grid" aria-label="PDF thumbnails">
+                        <div class="thumb" data-pdf="pdfs/portfolio - large.pdf" role="button" tabindex="0" aria-label="Open portfolio PDF">
+                            <img src="images/portfolio-cover-page.png" alt="Portfolio cover thumbnail" />
+                        </div>
+                        <div class="thumb" data-pdf="pdfs/internship.pdf" role="button" tabindex="0" aria-label="Open internship PDF">
+                            <img src="images/internship-cover.jpg" alt="Internship cover thumbnail" />
+                        </div>
+                        <div class="thumb" data-pdf="paper/research-paper.pdf" role="button" tabindex="0" aria-label="Open research paper PDF">
+                            <img src="images/research-cover.jpg" alt="Research cover thumbnail" />
+                        </div>
+                        <div class="thumb thumb--placeholder" aria-label="Placeholder thumbnail">Coming soon</div>
+                    </div>
+                </div>
+                <div class="column"></div>
+                <div class="column"></div>
             </div>
-            <!-- end of project covers pdf-->
+        </section>
 
-
-        </div>
-
-        <div class="bottom-container">
-
-            <a href="pages/portfolio.html" class="thumbnail-container">
-                <img src="images/portfolio-cover-page.png" class="thumbnail" alt="Portfolio Cover">
-                <h1>Portfolio</h1>
-            </a>
-            
-            <a href="pages/research.html" class="thumbnail-container">
-                <img src="images/research-cover.jpg" class="thumbnail" alt="Research Cover">
-                <h1>Research</h1>
-            </a>
-            <a href="#" class="thumbnail-container">
-                <img src="images/articles-cover.png" class="thumbnail" alt="Essays Cover">
-                <h1>Articles</h1>
-            </a>
-            <a href="#" class="thumbnail-container">
-                <img src="images/cv-cover.png" class="thumbnail" alt="CV Cover">
-                <h1>CV</h1>
-            </a>
-            <a href="#" class="thumbnail-container">
-                <img src="images/artwork-cover-page.png" class="thumbnail" alt="Artwork Cover">
-                <h1>Art</h1>
-            </a>
-            <a href="#" class="thumbnail-container">
-                <img src="images/computation-cover-page.png" class="thumbnail" alt="Computation Cover">
-                <h1>Computation</h1>
-            </a>
-            <a href="pages/internship.html" class="thumbnail-container">
-                <img src="images/internship-cover.jpg" class="thumbnail" alt="Internship Cover">
-                <h1>Internship</h1>
-            </a>
-
-
-
-               <!-- LINKS -->
-            <div class="links-container">
-                <a class="link-item" href="mailto:valley@gmail.com" target="_blank">
-                    <img src="images/email-logo.png" class="logo-image">
-                    <span>Email</span>
-                </a>
-                <a class="link-item" href="https://www.linkedin.com/in/varunsa-spab/" target="_blank">
-                    <img src="images/linkedin-logo.png" class="logo-image">
-                    <span>LinkedIn</span>
-                </a>
-                <a class="link-item" href="https://issuu.com/varunsa" target="_blank">
-                    <img src="images/issuu-logo.png" class="logo-image">
-                    <span>Issuu</span>
-                </a>
-                <a class="link-item" href="https://www.instagram.com/varun.sa_/" target="_blank">
-                    <img src="images/instagram-logo.png" class="logo-image">
-                    <span>Instagram</span>
-                </a>
-                <a class="link-item" href="https://github.com/valleyvarun" target="_blank">
-                    <img src="images/github-logo.png" class="logo-image">
-                    <span>GitHub</span>
-                </a>
-            </div>
-                
-                
-        </div>
-
+        
     </main>
     
+    <!-- Separate fullscreen-style overlay PDF viewer (triggered by thumbnails) -->
+    <div id="overlay-viewer" aria-hidden="true">
+        <div class="overlay-inner">
+            <div class="overlay-toolbar">
+                <div class="left">
+                    <button class="control-button" id="ov-prev" title="Previous page" aria-label="Previous page"><span>&lt;</span></button>
+                    <span><span id="ov-page-num">1</span> / <span id="ov-page-count">—</span></span>
+                    <button class="control-button" id="ov-next" title="Next page" aria-label="Next page"><span>&gt;</span></button>
+                </div>
+                <div class="right">
+                    <button class="control-button" id="ov-close" title="Close" aria-label="Close"><span>×</span></button>
+                </div>
+            </div>
+            <div class="overlay-canvas-box" id="ov-box">
+                <canvas id="ov-canvas"></canvas>
+            </div>
+        </div>
+    </div>
 
-    <script src="js/pdf.mjs"></script>
-    <script src="script.js"></script>
-    <script type="module" src="js/main.js"></script>
-
+    <script type="module" src="script.js"></script>
 </body>
 </html>
