@@ -1,7 +1,4 @@
-I am an aspiring architect with a strong enthusiasm for developing digital tools for design, particularly focusing on the synergy between BIM and AI.
+Hi, I’m Varun!
+I’m a --- creative technologist --- passionate about software development for design and the AEC industry. I’m especially fascinated by the potential of --- NVIDIA Omniverse --- to transform how we design and create.
 
-I have dedicated my academic journey to exploring the intersection of art, science, and technology. My experience spans working on diverse projects, including designing spaces for industrial architecture, research facilities, and factories. 
-
-My final-year B.Arch research thesis is on architecture for semiconductor electronics FABs, where I explore their functionality, integrating aesthetics, and the Human experience at such facilities.
-
-I hope you like my work :)
+Currently, I’m working on --- Drawing Intelligence --- , a project that enables interaction with CAD software through hand drawing. I’m pursuing my M.S. in --- Computational Design Practices --- at Columbia University, GSAPP, building on a Bachelor of Architecture from SPA-B.

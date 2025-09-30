@@ -52,6 +52,8 @@ body {
 .content-container {
     margin-top: calc(var(--header-h) + var(--content-offset-top));
     min-height: calc(100vh - var(--header-h) - var(--content-offset-top));
+    margin-left: 50px;
+    margin-right: 50px;
 }
 
 /* ===== Single container across devices ===== */
@@ -61,7 +63,7 @@ body {
 .columns {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 8px; /* constant small buffer */
+    gap: 35px; /* constant small buffer */
     padding: 8px 16px 16px 16px;
 }
 .column {
@@ -114,7 +116,7 @@ body {
 
 /* Thumbnails grid under the PDF viewer */
 .thumbs-grid {
-    margin-top: 8px;
+    margin-top: 32px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 8px;
@@ -124,8 +126,9 @@ body {
     border-radius: var(--radius);
     overflow: hidden;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
     cursor: pointer;
     transition: transform 120ms ease, box-shadow 200ms ease, background-color 200ms ease;
 }
@@ -133,7 +136,21 @@ body {
     display: block;
     width: 100%;
     height: auto;
+    flex: 0 0 auto;
     pointer-events: none; /* let the parent receive the click */
+}
+.thumb__caption {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 auto;
+    width: 100%;
+    padding: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.35;
+    color: rgba(255,255,255,0.95);
 }
 .thumb:hover,
 .thumb:focus-visible {

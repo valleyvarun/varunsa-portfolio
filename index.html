@@ -17,6 +17,7 @@
 
 <body>
 
+    <!-- Site-wide chrome: sticky logo header + responsive overlays -->
     <!-- Fixed header with centered logo -->
     <header class="site-header" role="banner">
         <div class="site-header__inner">
@@ -26,13 +27,16 @@
         </div>
     </header>
     
-
+    <!-- Global utility overlays for initial load + mobile orientation hints -->
     <div id="loading-indicator" role="status" aria-live="polite">loading....</div>
     <div id="orientation-hint" aria-live="polite">For a better view, rotate your phone to landscape.</div>
+
+    <!-- Core layout wrapper controlling column grid + responsive layout switches -->
     <main class="content-container">
-        <!-- PC layout: shown when width > height (landscape) -->
+        <!-- Primary desktop (landscape) experience -->
         <section class="pc-container" aria-label="Desktop layout">
             <div class="columns">
+                <!-- Column 1: static profile photo + animated intro text -->
                 <div class="column">
                     <div class="profile-block">
                         <img src="images/cv profile_psd.png" alt="CV profile" />
@@ -41,6 +45,7 @@
                         <div id="profile-text" class="profile-text"></div>
                     </div>
                 </div>
+                <!-- Columns 2–3: embedded PDF.js canvas viewer with controls + thumbnails -->
                 <!-- PDF viewer spanning columns 2 and 3 (pdf.js) -->
                 <div class="column pdf-pane">
                     <div class="pdf-viewer-box">
@@ -57,18 +62,22 @@
                         </div>
                     </div>
                     <div class="thumbs-grid" aria-label="PDF thumbnails">
-                        <div class="thumb" data-pdf="pdfs/portfolio - large.pdf" role="button" tabindex="0" aria-label="Open portfolio PDF">
+                        <div class="thumb" data-pdf="pdfs/portfolio.pdf" role="button" tabindex="0" aria-label="Open portfolio PDF">
                             <img src="images/portfolio-cover-page.png" alt="Portfolio cover thumbnail" />
+                            <span class="thumb__caption">Architecture Portfolio</span>
                         </div>
                         <div class="thumb" data-pdf="pdfs/internship.pdf" role="button" tabindex="0" aria-label="Open internship PDF">
                             <img src="images/internship-cover.jpg" alt="Internship cover thumbnail" />
+                            <span class="thumb__caption">Architecture Internship 2024</span>
                         </div>
                         <div class="thumb" data-pdf="paper/research-paper.pdf" role="button" tabindex="0" aria-label="Open research paper PDF">
                             <img src="images/research-cover.jpg" alt="Research cover thumbnail" />
+                            <span class="thumb__caption">FAB architecture - Literature Study</span>
                         </div>
                         <div class="thumb thumb--placeholder" aria-label="Placeholder thumbnail">Coming soon</div>
                     </div>
                 </div>
+                <!-- Columns 4–5: reserved for future content / alignment spacers -->
                 <div class="column"></div>
                 <div class="column"></div>
             </div>
@@ -77,7 +86,7 @@
         
     </main>
     
-    <!-- Separate fullscreen-style overlay PDF viewer (triggered by thumbnails) -->
+    <!-- Fullscreen overlay for immersive PDF navigation (opens from thumbnails) -->
     <div id="overlay-viewer" aria-hidden="true">
         <div class="overlay-inner">
             <div class="overlay-toolbar">
