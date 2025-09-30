@@ -94,6 +94,58 @@ import { getDocument, GlobalWorkerOptions } from './js/pdf.mjs';
                 let rendering = false;
                 let pendingPage = null;
 
+                const AUTO_ADVANCE_DELAY = 4000;
+                const MAX_AUTO_ADVANCE_LOOPS = 3;
+                let autoAdvanceTimer = null;
+                let autoAdvanceEnabled = true;
+                let autoAdvanceLoopCount = 0;
+
+                function clearAutoAdvanceTimer() {
+                    if (autoAdvanceTimer) {
+                        clearTimeout(autoAdvanceTimer);
+                        autoAdvanceTimer = null;
+                    }
+                }
+
+                function scheduleAutoAdvance() {
+                    if (!autoAdvanceEnabled) return;
+                    if (autoAdvanceLoopCount >= MAX_AUTO_ADVANCE_LOOPS) {
+                        stopAutoAdvance();
+                        return;
+                    }
+                    clearAutoAdvanceTimer();
+                    if (!pdfDoc || pdfDoc.numPages <= 1) return;
+                    autoAdvanceTimer = window.setTimeout(function () {
+                        if (!autoAdvanceEnabled || !pdfDoc) return;
+                        const nextPage = (pageNum % pdfDoc.numPages) + 1;
+                        if (nextPage === 1) {
+                            autoAdvanceLoopCount += 1;
+                            if (autoAdvanceLoopCount >= MAX_AUTO_ADVANCE_LOOPS) {
+                                stopAutoAdvance();
+                                return;
+                            }
+                        }
+                        pageNum = nextPage;
+                        queueRenderPage(pageNum);
+                    }, AUTO_ADVANCE_DELAY);
+                }
+
+                function stopAutoAdvance() {
+                    autoAdvanceEnabled = false;
+                    clearAutoAdvanceTimer();
+                }
+
+                function restartAutoAdvance() {
+                    autoAdvanceEnabled = true;
+                    autoAdvanceLoopCount = 0;
+                    clearAutoAdvanceTimer();
+                }
+
+                function userStoppedAutoAdvance() {
+                    if (!autoAdvanceEnabled) return;
+                    stopAutoAdvance();
+                }
+
                 // Overlay viewer state
                 let ovPdfDoc = null;
                 let ovPage = 1;
@@ -154,6 +206,8 @@ import { getDocument, GlobalWorkerOptions } from './js/pdf.mjs';
                             scale = targetScale; // persist latest scale
                             if (pendingPage !== null) {
                                 const p = pendingPage; pendingPage = null; renderPage(p);
+                            } else if (autoAdvanceEnabled) {
+                                scheduleAutoAdvance();
                             }
                         });
                         pageNumEl.textContent = num;
@@ -223,6 +277,7 @@ import { getDocument, GlobalWorkerOptions } from './js/pdf.mjs';
                             pageNum = 1;
                             scale = 1.0;
                             pageCountEl.textContent = pdf.numPages;
+                            restartAutoAdvance();
                             renderPage(pageNum, true);
                         });
                     }
@@ -231,9 +286,18 @@ import { getDocument, GlobalWorkerOptions } from './js/pdf.mjs';
 
                     // Note: thumbnails are handled by the separate overlay viewer below
 
-                    prevBtn.addEventListener('click', onPrevPage);
-                    nextBtn.addEventListener('click', onNextPage);
-                        fullscreenBtn.addEventListener('click', toggleFullscreen);
+                    prevBtn.addEventListener('click', function () {
+                        userStoppedAutoAdvance();
+                        onPrevPage();
+                    });
+                    nextBtn.addEventListener('click', function () {
+                        userStoppedAutoAdvance();
+                        onNextPage();
+                    });
+                    fullscreenBtn.addEventListener('click', function () {
+                        userStoppedAutoAdvance();
+                        toggleFullscreen();
+                    });
                         // exitMaxBtn removed; we rely on the same button to toggle collapse/expand
 
                     // Re-fit on resize
