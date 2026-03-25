@@ -1,10 +1,13 @@
 import { getDocument, GlobalWorkerOptions } from './js/pdf.mjs';
 
+// PDF Setup
 GlobalWorkerOptions.workerSrc = './js/pdf.worker.mjs';
 
 const pdfUrl = 'pdfs/project-covers.pdf';
 const pdfAspectRatio = 16 / 9;
+const slideshowDelay = 4000;
 
+// Viewer Elements
 const prevButton = document.getElementById('pdf-prev');
 const nextButton = document.getElementById('pdf-next');
 const fullscreenButton = document.getElementById('pdf-fullscreen');
@@ -22,10 +25,49 @@ const popupPageCount = document.getElementById('pdf-popup-page-count');
 const popupBody = document.getElementById('pdf-popup-body');
 const popupCanvas = document.getElementById('pdf-popup-canvas');
 
+// Viewer State
 let pdfDocument = null;
 let currentPage = 1;
 let renderRequestId = 0;
+let slideshowTimeoutId = null;
+let slideshowPagesRemaining = 0;
 
+// Slideshow
+function clearSlideshowTimer() {
+	if (slideshowTimeoutId !== null) {
+		window.clearTimeout(slideshowTimeoutId);
+		slideshowTimeoutId = null;
+	}
+}
+
+function runSlideshowStep() {
+	clearSlideshowTimer();
+
+	if (!pdfDocument || slideshowPagesRemaining <= 0 || currentPage >= pdfDocument.numPages) {
+		return;
+	}
+
+	slideshowTimeoutId = window.setTimeout(function () {
+		currentPage += 1;
+		slideshowPagesRemaining -= 1;
+		renderPage();
+		runSlideshowStep();
+	}, slideshowDelay);
+}
+
+function startSlideshow() {
+	if (!pdfDocument || pdfDocument.numPages <= 1) {
+		return;
+	}
+
+	clearSlideshowTimer();
+	currentPage = 1;
+	slideshowPagesRemaining = pdfDocument.numPages - 1;
+	renderPage();
+	runSlideshowStep();
+}
+
+// Layout Helpers
 function getGapSize(element) {
 	const styles = window.getComputedStyle(element);
 	const rowGap = parseFloat(styles.rowGap);
@@ -75,6 +117,7 @@ function updateViewerBodySize(container) {
 	return true;
 }
 
+// Render Helpers
 function scheduleRender() {
 	renderRequestId += 1;
 	const requestId = renderRequestId;
@@ -113,6 +156,7 @@ function renderToCanvas(page, targetCanvas, container) {
 	});
 }
 
+// Page Rendering
 function updatePageInfo() {
 	if (!pdfDocument) {
 		return;
@@ -148,24 +192,38 @@ function renderPage() {
 	});
 }
 
+// Viewer Controls
 function showPreviousPage() {
-	if (!pdfDocument || currentPage <= 1) {
+	if (!pdfDocument) {
 		return;
 	}
 
-	currentPage -= 1;
+	clearSlideshowTimer();
+	slideshowPagesRemaining = 0;
+	if (currentPage <= 1) {
+		currentPage = pdfDocument.numPages;
+	} else {
+		currentPage -= 1;
+	}
 	renderPage();
 }
 
 function showNextPage() {
-	if (!pdfDocument || currentPage >= pdfDocument.numPages) {
+	if (!pdfDocument) {
 		return;
 	}
 
-	currentPage += 1;
+	clearSlideshowTimer();
+	slideshowPagesRemaining = 0;
+	if (currentPage >= pdfDocument.numPages) {
+		currentPage = 1;
+	} else {
+		currentPage += 1;
+	}
 	renderPage();
 }
 
+// Popup Controls
 function openPopup() {
 	popup.classList.add('is-open');
 	popup.setAttribute('aria-hidden', 'false');
@@ -183,6 +241,7 @@ function closePopup() {
 	}
 }
 
+// Startup
 if (prevButton && nextButton && fullscreenButton && canvas && viewerBody && popup && popupCanvas && popupBody) {
 	prevButton.addEventListener('click', showPreviousPage);
 	nextButton.addEventListener('click', showNextPage);
@@ -198,6 +257,6 @@ if (prevButton && nextButton && fullscreenButton && canvas && viewerBody && popu
 
 	getDocument({ url: pdfUrl, disableWorker: true }).promise.then(function (pdf) {
 		pdfDocument = pdf;
-		scheduleRender();
+		startSlideshow();
 	});
 }

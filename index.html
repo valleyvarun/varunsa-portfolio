@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header -->
+    <!-- ========= Header ========= -->
     <header class="site-header">
         <!-- Site Logo -->
         <a href="index.html" class="logo">
@@ -18,9 +18,9 @@
         </a>
     </header>
 
-    <!-- Main Content Area -->
+    <!-- ========= Main Content Area ========= -->
     <main class="content-container">
-        <!-- Main Grid -->
+        <!-- ========= Main Grid ========= -->
         <section class="main-grid">
             <!-- Grid Item 1 -->
             <div class="grid-item grid-item-1">
@@ -102,30 +102,30 @@
                 <!-- Child Grid -->
                 <div class="grid-child">
                     <!-- Child Grid Item 1 -->
-                    <div class="grid-item-child">
+                    <div class="grid-item-child grid-item-child-pdf" data-pdf="pdfs/portfolio_wide.pdf" data-pdf-title="Architecture Portfolio 2025" role="button" tabindex="0" aria-label="Open Architecture Portfolio 2025 PDF">
                         <!-- Child Grid Image -->
-                        <img src="images/portfolio-cover-page.png" alt="Portfolio Cover" class="grid-item-child-image">
+                        <img src="images/portfolio-cover-page_ext.png" alt="Portfolio Cover" class="grid-item-child-image">
 
                         <!-- Child Grid Text -->
-                        <div class="grid-item-child-text">Architecture Portfolio</div>
+                        <div class="grid-item-child-text">Architecture Portfolio 2024</div>
                     </div>
 
                     <!-- Child Grid Item 2 -->
-                    <div class="grid-item-child">
+                    <div class="grid-item-child grid-item-child-pdf" data-pdf="pdfs/internship.pdf" data-pdf-title="Architecture Internship 2024" role="button" tabindex="0" aria-label="Open Architecture Internship 2024 PDF">
                         <!-- Child Grid Image -->
                         <img src="images/internship-cover.jpg" alt="Internship Cover" class="grid-item-child-image">
 
                         <!-- Child Grid Text -->
-                        <div class="grid-item-child-text">project name</div>
+                        <div class="grid-item-child-text">Architecture Internship 2024</div>
                     </div>
 
                     <!-- Child Grid Item 3 -->
-                    <div class="grid-item-child">
+                    <div class="grid-item-child grid-item-child-pdf" data-pdf="paper/research-paper.pdf" data-pdf-title="FAB Architecture - Literature Study" role="button" tabindex="0" aria-label="Open FAB Architecture Literature Study PDF">
                         <!-- Child Grid Image -->
                         <img src="images/research-cover.jpg" alt="Research Cover" class="grid-item-child-image">
 
                         <!-- Child Grid Text -->
-                        <div class="grid-item-child-text">project name</div>
+                        <div class="grid-item-child-text">FAB Architecture - Literature Study</div>
                     </div>
 
                     <!-- Child Grid Item 4 -->
@@ -138,7 +138,7 @@
         </section>
     </main>
 
-    <!-- PDF Popup -->
+    <!-- ========= PDF Popup ========= -->
     <div class="pdf-popup" id="pdf-popup" aria-hidden="true">
         <!-- PDF Popup Panel -->
         <div class="pdf-popup-panel">
@@ -168,7 +168,28 @@
         </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- ========= Browser PDF Popup ========= -->
+    <div class="pdf-popup" id="browser-pdf-popup" aria-hidden="true">
+        <!-- Browser PDF Popup Panel -->
+        <div class="pdf-popup-panel">
+            <!-- Browser PDF Popup Header -->
+            <div class="pdf-viewer-header">
+                <!-- Browser PDF Popup Title -->
+                <div class="pdf-viewer-page-info" id="browser-pdf-title">PDF Preview</div>
+
+                <!-- Browser PDF Popup Close -->
+                <button type="button" id="browser-pdf-close" class="pdf-viewer-button" aria-label="Close PDF Popup">×</button>
+            </div>
+
+            <!-- Browser PDF Popup Body -->
+            <div class="pdf-viewer-body pdf-browser-viewer-body">
+                <!-- Browser PDF Frame -->
+                <iframe id="browser-pdf-frame" class="browser-pdf-frame" title="Browser PDF Viewer" loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========= Scripts ========= -->
     <script type="module" src="pdf-viewer.js"></script>
     <script defer src="script.js"></script>
 </body>

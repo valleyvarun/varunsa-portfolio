@@ -145,6 +145,10 @@ img {
     overflow: hidden;
 }
 
+.grid-item-child-pdf {
+    cursor: pointer;
+}
+
 /* Child Grid Image */
 .grid-item-child-image {
     width: 100%;
@@ -227,6 +231,18 @@ img {
     display: block;
 }
 
+.pdf-browser-viewer-body {
+    width: 100%;
+    height: 100%;
+}
+
+.browser-pdf-frame {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background-color: #000;
+}
+
 /* PDF Popup */
 .pdf-popup {
     position: fixed;
@@ -265,6 +281,16 @@ img {
 .pdf-popup-panel .pdf-viewer-header {
     flex: none;
     background-color: #000;
+}
+
+#browser-pdf-popup .pdf-popup-panel {
+    width: 78%;
+}
+
+#browser-pdf-popup .pdf-viewer-header,
+#browser-pdf-popup .pdf-browser-viewer-body {
+    width: 100%;
+    max-width: 100%;
 }
 
 /* Profile Text */
