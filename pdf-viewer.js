@@ -6,6 +6,7 @@ GlobalWorkerOptions.workerSrc = './js/pdf.worker.mjs';
 const pdfUrl = 'pdfs/project-covers.pdf';
 const pdfAspectRatio = 16 / 9;
 const slideshowDelay = 4000;
+const mobileInlineViewerWidthRatio = 0.9;
 
 // Viewer Elements
 const prevButton = document.getElementById('pdf-prev');
@@ -101,6 +102,16 @@ function updateViewerBodySize(container) {
 
 	let width = Math.min(availableWidth, availableHeight * pdfAspectRatio);
 	let height = width / pdfAspectRatio;
+
+	if (container === viewerBody && window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches) {
+		const mobileTargetWidth = Math.min(availableWidth, window.innerWidth * mobileInlineViewerWidthRatio);
+		const mobileTargetHeight = mobileTargetWidth / pdfAspectRatio;
+
+		if (mobileTargetHeight <= availableHeight) {
+			width = mobileTargetWidth;
+			height = mobileTargetHeight;
+		}
+	}
 
 	if (height > availableHeight) {
 		height = availableHeight;

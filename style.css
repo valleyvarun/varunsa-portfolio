@@ -5,11 +5,13 @@
     box-sizing: border-box;
 }
 
+/* Variables */
 :root {
     --header-height: 50px;
-    --text-size: 15px;
+    --text-size: 1.6vh;
 }
 
+/* Body */
 body {
     min-height: 100vh;
     min-height: 100dvh;
@@ -145,6 +147,7 @@ img {
     overflow: hidden;
 }
 
+/* PDF Child Item */
 .grid-item-child-pdf {
     cursor: pointer;
 }
@@ -162,6 +165,7 @@ img {
     margin-top: 2vh;
     width: 100%;
     font-family: 'Cabin', sans-serif;
+    font-size: var(--text-size);
     text-align: center;
 }
 
@@ -202,12 +206,14 @@ img {
     background-color: transparent;
     color: #fff;
     font-family: 'Cabin', sans-serif;
+    font-size: var(--text-size);
     cursor: pointer;
 }
 
 /* PDF Viewer Page Info */
 .pdf-viewer-page-info {
     font-family: 'Cabin', sans-serif;
+    font-size: var(--text-size);
 }
 
 /* PDF Viewer Body */
@@ -231,11 +237,13 @@ img {
     display: block;
 }
 
+/* Browser PDF Body */
 .pdf-browser-viewer-body {
     width: 100%;
     height: 100%;
 }
 
+/* Browser PDF Frame */
 .browser-pdf-frame {
     width: 100%;
     height: 100%;
@@ -278,15 +286,18 @@ img {
     gap: 1vh;
 }
 
+/* Popup Header */
 .pdf-popup-panel .pdf-viewer-header {
     flex: none;
     background-color: #000;
 }
 
+/* Browser Popup Panel */
 #browser-pdf-popup .pdf-popup-panel {
     width: 78%;
 }
 
+/* Browser Popup Layout */
 #browser-pdf-popup .pdf-viewer-header,
 #browser-pdf-popup .pdf-browser-viewer-body {
     width: 100%;
@@ -298,6 +309,7 @@ img {
     width: 100%;
     line-height: 1.6;
     font-family: 'Cabin', sans-serif;
+    font-size: var(--text-size);
     white-space: pre-line;
 }
 
@@ -307,4 +319,223 @@ img {
     width: auto;
     border-radius: 0.6vh;
     display: block;
+}
+
+/* Tablet Portrait */
+@media (min-width: 601px) and (max-width: 1000px) and (orientation: portrait) {
+    /* Tablet Variables */
+    :root {
+        --text-size: 1.8vh;
+    }
+
+    /* Tablet Content */
+    .content-container {
+        width: calc(100% - 4vw);
+        height: auto;
+        min-height: calc(100dvh - var(--header-height) - 4vh);
+    }
+
+    /* Tablet Grid */
+    .main-grid {
+        grid-template-columns: 35% minmax(0, 1fr);
+        grid-template-rows: auto;
+        grid-template-areas:
+            "item1 item4"
+            "item2 item2"
+            "item6 item6"
+            "item5 item5"
+            "item3 item3";
+        grid-auto-rows: auto;
+        gap: 2vh;
+        height: auto;
+    }
+
+    /* Tablet Grid Item */
+    .grid-item {
+        width: 100%;
+        min-height: 0;
+    }
+
+    /* Tablet Grid Reset */
+    .grid-item-1,
+    .grid-item-2,
+    .grid-item-3,
+    .grid-item-4,
+    .grid-item-5,
+    .grid-item-6 {
+        grid-column: auto;
+        grid-row: auto;
+    }
+
+    /* Tablet Grid Item 1 */
+    .grid-item-1 {
+        grid-area: item1;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    /* Tablet Grid Item 2 */
+    .grid-item-2 {
+        grid-area: item2;
+        padding: 0;
+        min-height: calc(50.625vw + 8vh);
+    }
+
+    /* Tablet Grid Item 3 */
+    .grid-item-3 {
+        grid-area: item3;
+        min-height: 20vh;
+    }
+
+    /* Tablet Grid Item 4 */
+    .grid-item-4 {
+        grid-area: item4;
+        width: 100%;
+    }
+
+    /* Tablet Grid Item 5 */
+    .grid-item-5 {
+        grid-area: item5;
+        min-height: 18vh;
+    }
+
+    /* Tablet Grid Item 6 */
+    .grid-item-6 {
+        grid-area: item6;
+        min-height: 20vh;
+    }
+
+    /* Tablet Child Grids */
+    .grid-item-3 .grid-child,
+    .grid-item-6 .grid-child {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-rows: 1fr;
+        gap: 0;
+    }
+
+    /* Tablet Profile Image */
+    .profile-image {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Mobile Portrait */
+@media (max-width: 600px) and (orientation: portrait) {
+    /* Mobile Variables */
+    :root {
+        --text-size: 1.9vh;
+    }
+
+    /* Mobile Content */
+    .content-container {
+        width: calc(100% - 4vw);
+        height: auto;
+        min-height: calc(100dvh - var(--header-height) - 4vh);
+    }
+
+    /* Mobile Grid */
+    .main-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: auto;
+        grid-template-areas:
+            "item1 ."
+            "item4 item4"
+            "item2 item2"
+            "item6 item6"
+            "item5 item5"
+            "item3 item3";
+        grid-auto-rows: auto;
+        gap: 2vh;
+        height: auto;
+    }
+
+    /* Mobile Grid Item */
+    .grid-item {
+        width: 100%;
+        min-height: 0;
+    }
+
+    /* Mobile Grid Reset */
+    .grid-item-1,
+    .grid-item-2,
+    .grid-item-3,
+    .grid-item-4,
+    .grid-item-5,
+    .grid-item-6 {
+        grid-column: auto;
+        grid-row: auto;
+    }
+
+    /* Mobile Grid Item 1 */
+    .grid-item-1 {
+        grid-area: item1;
+        width: 100%;
+        justify-self: start;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    /* Mobile Grid Item 2 */
+    .grid-item-2 {
+        grid-area: item2;
+        padding: 0;
+        min-height: calc(50.625vw + 8vh);
+    }
+
+    /* Mobile Grid Item 3 */
+    .grid-item-3 {
+        grid-area: item3;
+        padding: 0;
+        min-height: 34vh;
+    }
+
+    /* Mobile Grid Item 4 */
+    .grid-item-4 {
+        grid-area: item4;
+        width: 100%;
+    }
+
+    /* Mobile Grid Item 5 */
+    .grid-item-5 {
+        grid-area: item5;
+        min-height: 22vh;
+    }
+
+    /* Mobile Grid Item 6 */
+    .grid-item-6 {
+        grid-area: item6;
+        padding: 0;
+        min-height: 42vh;
+    }
+
+    /* Mobile Child Grids */
+    .grid-item-3 .grid-child,
+    .grid-item-6 .grid-child {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: repeat(2, minmax(0, 1fr));
+        gap: 0;
+    }
+
+    /* Mobile Child Item */
+    .grid-item-child {
+        padding: 1.5vh 1vh 3vh;
+    }
+
+    /* Mobile Profile Image */
+    .profile-image {
+        width: 100%;
+        height: auto;
+    }
+
+    /* Mobile PDF Popup */
+    .pdf-popup-panel {
+        width: 98%;
+        height: 96%;
+    }
+
+    /* Mobile Browser Popup */
+    #browser-pdf-popup .pdf-popup-panel {
+        width: 92%;
+    }
 }
