@@ -3,6 +3,7 @@ import { getDocument, GlobalWorkerOptions } from './js/pdf.mjs';
 GlobalWorkerOptions.workerSrc = './js/pdf.worker.mjs';
 
 const pdfUrl = 'pdfs/project-covers.pdf';
+const pdfAspectRatio = 16 / 9;
 
 const prevButton = document.getElementById('pdf-prev');
 const nextButton = document.getElementById('pdf-next');
@@ -23,6 +24,65 @@ const popupCanvas = document.getElementById('pdf-popup-canvas');
 
 let pdfDocument = null;
 let currentPage = 1;
+let renderRequestId = 0;
+
+function getGapSize(element) {
+	const styles = window.getComputedStyle(element);
+	const rowGap = parseFloat(styles.rowGap);
+	const gap = parseFloat(styles.gap);
+
+	if (!Number.isNaN(rowGap)) {
+		return rowGap;
+	}
+
+	if (!Number.isNaN(gap)) {
+		return gap;
+	}
+
+	return 0;
+}
+
+function updateViewerBodySize(container) {
+	const parent = container.parentElement;
+
+	if (!parent) {
+		return false;
+	}
+
+	const header = parent.querySelector('.pdf-viewer-header');
+	const availableWidth = parent.clientWidth;
+	const availableHeight = parent.clientHeight - (header ? header.offsetHeight : 0) - getGapSize(parent);
+
+	if (availableWidth <= 0 || availableHeight <= 0) {
+		return false;
+	}
+
+	let width = Math.min(availableWidth, availableHeight * pdfAspectRatio);
+	let height = width / pdfAspectRatio;
+
+	if (height > availableHeight) {
+		height = availableHeight;
+		width = height * pdfAspectRatio;
+	}
+
+	container.style.width = Math.floor(width) + 'px';
+	container.style.height = Math.floor(height) + 'px';
+
+	return true;
+}
+
+function scheduleRender() {
+	renderRequestId += 1;
+	const requestId = renderRequestId;
+
+	window.requestAnimationFrame(function () {
+		if (requestId !== renderRequestId) {
+			return;
+		}
+
+		renderPage();
+	});
+}
 
 function getScale(page, container) {
 	const viewport = page.getViewport({ scale: 1 });
@@ -65,6 +125,14 @@ function renderPage() {
 		return;
 	}
 
+	const inlineReady = updateViewerBodySize(viewerBody);
+	const popupReady = !popup.classList.contains('is-open') || updateViewerBodySize(popupBody);
+
+	if (!inlineReady || !popupReady) {
+		scheduleRender();
+		return;
+	}
+
 	pdfDocument.getPage(currentPage).then(function (page) {
 		renderToCanvas(page, canvas, viewerBody);
 
@@ -97,7 +165,7 @@ function showNextPage() {
 function openPopup() {
 	popup.classList.add('is-open');
 	popup.setAttribute('aria-hidden', 'false');
-	renderPage();
+	scheduleRender();
 }
 
 function closePopup() {
@@ -115,11 +183,11 @@ if (prevButton && nextButton && fullscreenButton && canvas && viewerBody && popu
 	popupCloseButton.addEventListener('click', closePopup);
 
 	window.addEventListener('resize', function () {
-		renderPage();
+		scheduleRender();
 	});
 
-	getDocument(pdfUrl).promise.then(function (pdf) {
+	getDocument({ url: pdfUrl, disableWorker: true }).promise.then(function (pdf) {
 		pdfDocument = pdf;
-		renderPage();
+		scheduleRender();
 	});
 }

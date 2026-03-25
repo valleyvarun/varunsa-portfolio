@@ -12,6 +12,7 @@
 
 body {
     min-height: 100vh;
+    min-height: 100dvh;
     background-color: #000;
     color: #fff;
     font-family: sans-serif;
@@ -56,6 +57,7 @@ img {
 .content-container {
     width: calc(100% - 4vw);
     height: calc(100vh - var(--header-height) - 4vh);
+    height: calc(100dvh - var(--header-height) - 4vh);
     margin: 2vh 2vw;
 }
 
@@ -211,13 +213,11 @@ img {
 
 /* PDF Viewer Body */
 .pdf-viewer-body {
-    flex: 1;
+    flex: none;
     width: 100%;
     max-width: 100%;
     max-height: 100%;
     min-height: 0;
-    aspect-ratio: 16 / 9;
-    height: auto;
     border: 1px solid #ffd43b;
     display: flex;
     align-items: center;
@@ -227,8 +227,8 @@ img {
 
 /* PDF Canvas */
 .pdf-canvas {
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     display: block;
 }
 
