@@ -68,6 +68,10 @@ function updateViewerBodySize(container) {
 	container.style.width = Math.floor(width) + 'px';
 	container.style.height = Math.floor(height) + 'px';
 
+	if (parent.classList.contains('pdf-popup-panel') && header) {
+		header.style.width = Math.floor(width) + 'px';
+	}
+
 	return true;
 }
 
@@ -171,6 +175,12 @@ function openPopup() {
 function closePopup() {
 	popup.classList.remove('is-open');
 	popup.setAttribute('aria-hidden', 'true');
+
+	const popupHeader = popup.querySelector('.pdf-viewer-header');
+
+	if (popupHeader) {
+		popupHeader.style.width = '';
+	}
 }
 
 if (prevButton && nextButton && fullscreenButton && canvas && viewerBody && popup && popupCanvas && popupBody) {
