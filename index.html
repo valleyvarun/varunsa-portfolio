@@ -31,7 +31,31 @@
             <!-- Grid Item 2 -->
             <div class="grid-item grid-item-2">
                 <!-- PDF Viewer -->
-                <iframe src="pdfs/project-covers.pdf" class="pdf-frame" title="Project Covers PDF Viewer"></iframe>
+                <div class="pdf-viewer">
+                    <!-- PDF Viewer Header -->
+                    <div class="pdf-viewer-header">
+                        <!-- PDF Viewer Controls -->
+                        <div class="pdf-viewer-controls">
+                            <!-- Previous Page Button -->
+                            <button type="button" id="pdf-prev" class="pdf-viewer-button" aria-label="Previous Page">&lt;</button>
+
+                            <!-- Page Info -->
+                            <div class="pdf-viewer-page-info"><span id="pdf-page-num">1</span> / <span id="pdf-page-count">0</span></div>
+
+                            <!-- Next Page Button -->
+                            <button type="button" id="pdf-next" class="pdf-viewer-button" aria-label="Next Page">&gt;</button>
+                        </div>
+
+                        <!-- Fullscreen Button -->
+                        <button type="button" id="pdf-fullscreen" class="pdf-viewer-button" aria-label="Open Fullscreen">⛶</button>
+                    </div>
+
+                    <!-- PDF Viewer Body -->
+                    <div class="pdf-viewer-body" id="pdf-viewer-body">
+                        <!-- PDF Canvas -->
+                        <canvas id="pdf-canvas" class="pdf-canvas"></canvas>
+                    </div>
+                </div>
             </div>
 
             <!-- Grid Item 3 -->
@@ -114,7 +138,38 @@
         </section>
     </main>
 
+    <!-- PDF Popup -->
+    <div class="pdf-popup" id="pdf-popup" aria-hidden="true">
+        <!-- PDF Popup Panel -->
+        <div class="pdf-popup-panel">
+            <!-- PDF Popup Header -->
+            <div class="pdf-viewer-header">
+                <!-- PDF Popup Controls -->
+                <div class="pdf-viewer-controls">
+                    <!-- Previous Page Button -->
+                    <button type="button" id="pdf-popup-prev" class="pdf-viewer-button" aria-label="Previous Page">&lt;</button>
+
+                    <!-- Page Info -->
+                    <div class="pdf-viewer-page-info"><span id="pdf-popup-page-num">1</span> / <span id="pdf-popup-page-count">0</span></div>
+
+                    <!-- Next Page Button -->
+                    <button type="button" id="pdf-popup-next" class="pdf-viewer-button" aria-label="Next Page">&gt;</button>
+                </div>
+
+                <!-- Close Button -->
+                <button type="button" id="pdf-popup-close" class="pdf-viewer-button" aria-label="Close Fullscreen">×</button>
+            </div>
+
+            <!-- PDF Popup Body -->
+            <div class="pdf-viewer-body" id="pdf-popup-body">
+                <!-- PDF Popup Canvas -->
+                <canvas id="pdf-popup-canvas" class="pdf-canvas"></canvas>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
+    <script type="module" src="pdf-viewer.js"></script>
     <script type="module" src="script.js"></script>
 </body>
 </html>
