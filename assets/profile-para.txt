@@ -1,4 +1,4 @@
 Hi, I’m Varun!
 I’m a --- creative technologist --- passionate about software development for design and the AEC industry. I’m especially fascinated by the potential of --- NVIDIA Omniverse --- to transform how we design and create.
 
-Currently, I’m working on --- Drawing Intelligence --- , a project that enables interaction with CAD software through hand drawing. I’m pursuing my M.S. in --- Computational Design Practices --- at Columbia University, GSAPP, building on a Bachelor of Architecture from SPA-B.
+Currently, I’m working on --- Drawing Intelligence --- , a project that enables interaction with Agentic AI in CAD software through hand drawing. I’m pursuing my M.S. in --- Computational Design Practices --- at Columbia University, GSAPP, building on a Bachelor of Architecture from SPA-B.

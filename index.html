@@ -1,110 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Varun's Portfolio</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="style.css?v=2025-09-28-1">
-
+    <title>Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-    <!-- Site-wide chrome: sticky logo header + responsive overlays -->
-    <!-- Fixed header with centered logo -->
-    <header class="site-header" role="banner">
-        <div class="site-header__inner">
-            <a class="site-logo" href="index.html" aria-label="VSA Home">
-                <img src="images/logo psd.png" alt="VSA logo" />
-            </a>
-        </div>
+    <!-- Header -->
+    <header class="site-header">
+        <!-- Site Logo -->
+        <a href="index.html" class="logo">
+            <img src="images/logo psd.png" alt="VSA Logo">
+        </a>
     </header>
-    
-    <!-- Global utility overlays for initial load + mobile orientation hints -->
-    <div id="loading-indicator" role="status" aria-live="polite">loading....</div>
-    <div id="orientation-hint" aria-live="polite">For a better view, rotate your phone to landscape.</div>
 
-    <!-- Core layout wrapper controlling column grid + responsive layout switches -->
+    <!-- Main Content Area -->
     <main class="content-container">
-        <!-- Primary desktop (landscape) experience -->
-        <section class="pc-container" aria-label="Desktop layout">
-            <div class="columns">
-                <!-- Column 1: static profile photo + animated intro text -->
-                <div class="column">
-                    <div class="profile-block">
-                        <img src="images/cv profile_psd.png" alt="CV profile" />
+        <!-- Main Grid -->
+        <section class="main-grid">
+            <!-- Grid Item 1 -->
+            <div class="grid-item grid-item-1">
+                <!-- Profile Image -->
+                <img src="images/cv profile_psd.png" alt="Profile Picture" class="profile-image">
+            </div>
+
+            <!-- Grid Item 2 -->
+            <div class="grid-item grid-item-2">
+                <!-- PDF Viewer -->
+                <iframe src="pdfs/project-covers.pdf" class="pdf-frame" title="Project Covers PDF Viewer"></iframe>
+            </div>
+
+            <!-- Grid Item 3 -->
+            <div class="grid-item grid-item-3">
+                <!-- Child Grid -->
+                <div class="grid-child">
+                    <!-- Child Grid Item 1 -->
+                    <div class="grid-item-child">
+                        <!-- Child Grid Text -->
+                        <div class="grid-item-child-text">coming soon</div>
                     </div>
-                    <div class="profile-block-below">
-                        <div id="profile-text" class="profile-text"></div>
+
+                    <!-- Child Grid Item 2 -->
+                    <div class="grid-item-child">
+                        <!-- Child Grid Text -->
+                        <div class="grid-item-child-text">coming soon</div>
                     </div>
-                </div>
-                <!-- Columns 2–3: embedded PDF.js canvas viewer with controls + thumbnails -->
-                <!-- PDF viewer spanning columns 2 and 3 (pdf.js) -->
-                <div class="column pdf-pane">
-                    <div class="pdf-viewer-box">
-                        <canvas id="pdf-canvas" class="pdf-viewer"></canvas>
+
+                    <!-- Child Grid Item 3 -->
+                    <div class="grid-item-child">
+                        <!-- Child Grid Text -->
+                        <div class="grid-item-child-text">coming soon</div>
                     </div>
-                    <div class="pdf-control-bar">
-                        <div class="left-section">
-                            <button class="control-button" id="pdf-prev"><span>&lt;</span></button>
-                            <span id="pdf-page-info"><span id="pdf-page-num">1</span> / <span id="pdf-page-count">—</span></span>
-                            <button class="control-button" id="pdf-next"><span>&gt;</span></button>
-                        </div>
-                        <div class="right-section">
-                            <button class="control-button" id="pdf-fullscreen" title="Fullscreen" aria-label="Fullscreen"><span>⛶</span></button>
-                        </div>
-                    </div>
-                    <div class="thumbs-grid" aria-label="PDF thumbnails">
-                        <div class="thumb" data-pdf="pdfs/portfolio.pdf" role="button" tabindex="0" aria-label="Open portfolio PDF">
-                            <img src="images/portfolio-cover-page.png" alt="Portfolio cover thumbnail" />
-                            <span class="thumb__caption">Architecture Portfolio</span>
-                        </div>
-                        <div class="thumb" data-pdf="pdfs/internship.pdf" role="button" tabindex="0" aria-label="Open internship PDF">
-                            <img src="images/internship-cover.jpg" alt="Internship cover thumbnail" />
-                            <span class="thumb__caption">Architecture Internship 2024</span>
-                        </div>
-                        <div class="thumb" data-pdf="paper/research-paper.pdf" role="button" tabindex="0" aria-label="Open research paper PDF">
-                            <img src="images/research-cover.jpg" alt="Research cover thumbnail" />
-                            <span class="thumb__caption">FAB architecture - Literature Study</span>
-                        </div>
-                        <div class="thumb thumb--placeholder" aria-label="Placeholder thumbnail">Coming soon</div>
+
+                    <!-- Child Grid Item 4 -->
+                    <div class="grid-item-child">
+                        <!-- Child Grid Text -->
+                        <div class="grid-item-child-text">coming soon</div>
                     </div>
                 </div>
-                <!-- Columns 4–5: reserved for future content / alignment spacers -->
-                <div class="column"></div>
-                <div class="column"></div>
+            </div>
+
+            <!-- Grid Item 4 -->
+            <div class="grid-item grid-item-4">
+                <!-- Profile Text -->
+                <div id="profile-text"></div>
+            </div>
+
+            <!-- Grid Item 5 -->
+            <div class="grid-item grid-item-5">Grid Item 5</div>
+
+            <!-- Grid Item 6 -->
+            <div class="grid-item grid-item-6">
+                <!-- Child Grid -->
+                <div class="grid-child">
+                    <!-- Child Grid Item 1 -->
+                    <div class="grid-item-child">
+                        <!-- Child Grid Image -->
+                        <img src="images/portfolio-cover-page.png" alt="Portfolio Cover" class="grid-item-child-image">
+
+                        <!-- Child Grid Text -->
+                        <div class="grid-item-child-text">project name</div>
+                    </div>
+
+                    <!-- Child Grid Item 2 -->
+                    <div class="grid-item-child">
+                        <!-- Child Grid Image -->
+                        <img src="images/internship-cover.jpg" alt="Internship Cover" class="grid-item-child-image">
+
+                        <!-- Child Grid Text -->
+                        <div class="grid-item-child-text">project name</div>
+                    </div>
+
+                    <!-- Child Grid Item 3 -->
+                    <div class="grid-item-child">
+                        <!-- Child Grid Image -->
+                        <img src="images/research-cover.jpg" alt="Research Cover" class="grid-item-child-image">
+
+                        <!-- Child Grid Text -->
+                        <div class="grid-item-child-text">project name</div>
+                    </div>
+
+                    <!-- Child Grid Item 4 -->
+                    <div class="grid-item-child">
+                        <!-- Child Grid Text -->
+                        <div class="grid-item-child-text">4</div>
+                    </div>
+                </div>
             </div>
         </section>
-
-        
     </main>
-    
-    <!-- Fullscreen overlay for immersive PDF navigation (opens from thumbnails) -->
-    <div id="overlay-viewer" aria-hidden="true">
-        <div class="overlay-inner">
-            <div class="overlay-toolbar">
-                <div class="left">
-                    <button class="control-button" id="ov-prev" title="Previous page" aria-label="Previous page"><span>&lt;</span></button>
-                    <span><span id="ov-page-num">1</span> / <span id="ov-page-count">—</span></span>
-                    <button class="control-button" id="ov-next" title="Next page" aria-label="Next page"><span>&gt;</span></button>
-                </div>
-                <div class="right">
-                    <button class="control-button" id="ov-close" title="Close" aria-label="Close"><span>×</span></button>
-                </div>
-            </div>
-            <div class="overlay-canvas-box" id="ov-box">
-                <canvas id="ov-canvas"></canvas>
-            </div>
-        </div>
-    </div>
 
+    <!-- Scripts -->
     <script type="module" src="script.js"></script>
 </body>
 </html>

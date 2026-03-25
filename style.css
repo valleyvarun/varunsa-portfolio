@@ -1,293 +1,183 @@
-/* ===== Base reset & variables ===== */
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
-body {
-    font-family: 'IBM Plex Mono', monospace;
-    background: #000;
-    color: #fff;
+﻿/* Base Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 :root {
-    /* Header sizing (constant logo height) */
-    --logo-h-px: 48px;
-    --header-pad-y: 6px;
-    --header-h: calc(var(--logo-h-px) + (var(--header-pad-y) * 2));
-
-    /* Common spacing */
-    --radius: 12px;
-    /* Extra space below header to lower the columns a little */
-        --content-offset-top: 20px;
+    --header-height: 50px;
+    --text-size: 15px;
 }
 
-/* ===== Loading indicator ===== */
-#loading-indicator {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0,0,0,0.8);
+body {
+    min-height: 100vh;
+    background-color: #000;
     color: #fff;
-    padding: 16px 20px;
-    border-radius: 10px;
-    font-size: 16px;
-    z-index: 1000;
+    font-family: sans-serif;
+    font-size: var(--text-size);
 }
 
-/* ===== Fixed header with centered logo ===== */
+/* Images */
+img {
+    border-radius: 0.6vh;
+    clip-path: inset(0 round 0.6vh);
+}
+
+/* Header */
 .site-header {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    height: var(--header-h);
-    background: #000;
-    display: flex; align-items: center; justify-content: center;
+    background-color: #000;
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5vh 1vw;
+    border-bottom: 1px solid #222;
+    position: sticky;
+    top: 0;
     z-index: 1000;
-    box-shadow: 0 6px 16px rgba(128,128,128,0.25);
-    padding: var(--header-pad-y) 0;
 }
-.site-header__inner { height: 100%; display: flex; align-items: center; justify-content: center; }
-.site-logo { display: inline-flex; height: 100%; align-items: center; }
-.site-logo img { height: var(--logo-h-px); width: auto; display: block; }
 
-/* Main content sits below the fixed header, with a little extra offset */
+/* Header Logo */
+.logo {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 100%;
+    width: auto;
+    border-radius: 0.6vh;
+    display: block;
+}
+
+/* Content Containers */
 .content-container {
-    margin-top: calc(var(--header-h) + var(--content-offset-top));
-    min-height: calc(100vh - var(--header-h) - var(--content-offset-top));
-    margin-left: 50px;
-    margin-right: 50px;
+    width: calc(100% - 4vw);
+    height: calc(100vh - var(--header-height) - 4vh);
+    margin: 2vh 2vw;
 }
 
-/* ===== Single container across devices ===== */
-.pc-container { display: block; }
-
-/* ===== Columns (equal width, auto height, constant gap) ===== */
-.columns {
+/* Main Grid */
+.main-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 35px; /* constant small buffer */
-    padding: 8px 16px 16px 16px;
-}
-.column {
-    background: #000; /* solid black */
-    border-radius: var(--radius);
-    height: auto;
-    min-height: 10vh; /* visible placeholder until content is added */
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1.35fr 0.3fr 1.35fr;
+    width: 100%;
+    height: 100%;
+    gap: 0;
 }
 
-/* Profile blocks inside first column */
-.profile-block { padding: 0; }
-.profile-block img { display: block; width: 100%; height: auto; border-radius: var(--radius); }
-.profile-block-below { margin-top: 8px; padding: 12px; border-radius: var(--radius); background: rgba(255,255,255,0.04); }
-.profile-text { line-height: 1.5; font-size: 14px; }
-.profile-text p { margin: 0 0 10px 0; }
-.profile-text p:last-child { margin-bottom: 0; }
-
-/* Desktop (landscape) column counts by aspect ratio */
-@media (max-aspect-ratio: 5/4) {
-    /* Slightly wide but near-square landscape -> 2 columns */
-    .pc-container .columns { grid-template-columns: repeat(2, 1fr); }
+/* Grid Item */
+.grid-item {
+    min-height: 0;
+    padding: 2vh;
+    border: 1px solid #fff;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-@media (min-aspect-ratio: 4/3) {
-    /* Standard wide -> 4 columns */
-    .pc-container .columns { grid-template-columns: repeat(4, 1fr); }
+/* Grid Item 1 */
+.grid-item-1 {
+    overflow: hidden;
 }
 
-@media (min-aspect-ratio: 15/9) {
-    /* Very wide (≈15:9 or wider) -> 5 columns */
-    .pc-container .columns { grid-template-columns: repeat(5, 1fr); }
+/* Grid Item 2 */
+.grid-item-2 {
+    grid-column: span 2;
+    grid-row: span 2;
+    padding-bottom: 3.1vh;
+    overflow: hidden;
 }
 
-/* ===== PDF viewer styles kept ===== */
-.pdf-viewer-box { position: relative; width: 100%; background: #000; border-radius: var(--radius); justify-content: center; align-items: center; }
-.pdf-control-bar {
-    position: relative; margin-top: 8px; width: 100%; height: 50px; background: rgba(255,255,255,0.06);
-    border-radius: var(--radius); box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-    display: flex; justify-content: space-between; align-items: center;
+/* Grid Item 3 */
+.grid-item-3 {
+    grid-column: span 2;
+    padding: 0 2vh;
+    align-items: stretch;
+    justify-content: stretch;
 }
-.pdf-control-bar .left-section, .pdf-control-bar .right-section { height: 100%; display: flex; align-items: center; gap: 8px; }
-.control-button {
-    background: #fff; height: 75%; color: #000; border: none; font-weight: bold; padding: 8px 12px; margin: 0 8px;
-    border-radius: var(--radius); cursor: pointer; transition: transform 0.2s ease, background-color 0.3s ease; display: flex; align-items: center; justify-content: center;
-}
-.control-button span { font-size: 14px; font-weight: normal; }
-.control-button:hover { background: #ddd; transform: scale(1.05); }
-.control-button:active { transform: scale(0.95); }
-.pdf-viewer { max-width: 100%; max-height: 100%; width: auto; height: auto; }
 
-/* Thumbnails grid under the PDF viewer */
-.thumbs-grid {
-    margin-top: 32px;
+/* Grid Item 4 */
+.grid-item-4 {
+    grid-row: span 2;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+/* Grid Item 5 */
+.grid-item-5 {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+/* Grid Item 6 */
+.grid-item-6 {
+    grid-column: span 2;
+    padding: 0 2vh;
+    align-items: stretch;
+    justify-content: stretch;
+}
+
+/* Child Grid */
+.grid-child {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
+    grid-template-rows: 1fr;
+    width: 100%;
+    height: 100%;
 }
-.thumb {
-    background: rgba(255,255,255,0.04);
-    border-radius: var(--radius);
-    overflow: hidden;
+
+/* Child Grid Item */
+.grid-item-child {
+    padding: 2vh 0.5vh 6vh;
+    border: 1px solid #fff;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: flex-start;
     justify-content: flex-start;
-    cursor: pointer;
-    transition: transform 120ms ease, box-shadow 200ms ease, background-color 200ms ease;
+    overflow: hidden;
 }
-.thumb img {
-    display: block;
+
+/* Child Grid Image */
+.grid-item-child-image {
     width: 100%;
     height: auto;
-    flex: 0 0 auto;
-    pointer-events: none; /* let the parent receive the click */
-}
-.thumb__caption {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1 1 auto;
-    width: 100%;
-    padding: 12px;
-    font-size: 12px;
-    font-weight: 700;
-    text-align: center;
-    line-height: 1.35;
-    color: rgba(255,255,255,0.95);
-}
-.thumb:hover,
-.thumb:focus-visible {
-    transform: scale(1.03);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-    background: rgba(255,255,255,0.06);
-    outline: none;
-}
-.thumb:active {
-    transform: scale(0.97);
-}
-.thumb--placeholder {
-    color: #aaa;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Hide thumbnails in maximized overlay for a clean expanded view */
-.pdf-pane.maximized .thumbs-grid { display: none; }
-
-/* PDF pane that spans two columns on multi-column layouts */
-.pdf-pane {
-    grid-column: span 2;
-}
-.pdf-viewer-embed {
+    border-radius: 0.6vh;
     display: block;
+}
+
+/* Child Grid Text */
+.grid-item-child-text {
+    margin-top: auto;
+    width: 100%;
+    font-family: 'Cabin', sans-serif;
+    text-align: center;
+}
+
+/* PDF Viewer */
+.pdf-frame {
     width: 100%;
     height: 100%;
     border: 0;
-    border-radius: var(--radius);
-    background: #111;
+    display: block;
 }
 
-/* Maintain 16:9 aspect ratio for the PDF viewer area */
-.pdf-viewer-box {
-    position: relative;
+/* Profile Text */
+#profile-text {
     width: 100%;
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
+    line-height: 1.6;
+    font-family: 'Cabin', sans-serif;
+    white-space: pre-line;
 }
 
-/* Maximized overlay mode for the entire PDF pane (viewer + controls) */
-
-.pdf-pane.maximized {
-    position: fixed;
-    inset: 0;
-    z-index: 2000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,0,0,0.35); /* subtle backdrop */
-    padding: 4vh 3vw;
+/* Profile Image */
+.profile-image {
+    height: 100%;
+    width: auto;
+    border-radius: 0.6vh;
+    display: block;
 }
-
-.pdf-pane.maximized .column,
-.pdf-pane.maximized .pdf-pane { background: transparent; }
-
-.pdf-pane.maximized .pdf-viewer-box {
-    width: min(92vw, calc((100vh - 8vh - 58px) * 16 / 9));
-    aspect-ratio: 16 / 9; /* keep same aspect ratio */
-}
-
-.pdf-pane.maximized .pdf-control-bar {
-    width: min(92vw, calc((100vh - 8vh - 58px) * 16 / 9));
-}
-
-
-/* Prevent page scroll when overlay is open */
-body.no-scroll { overflow: hidden; }
-
-/* Orientation hint toast */
-#orientation-hint {
-    display: none;
-    position: fixed;
-    bottom: 16px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0,0,0,0.85);
-    color: #fff;
-    padding: 10px 14px;
-    border-radius: 8px;
-    font-size: 13px;
-    z-index: 2500;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.35);
-}
-
-/* If only 2 columns available, still spans both; more columns -> remains 2-wide */
-@media (max-aspect-ratio: 5/4) {
-    .pc-container .columns { grid-template-columns: repeat(2, 1fr); }
-    .pdf-pane { grid-column: span 2; }
-}
-
-/* Optional helper for iframe-based PDF pages */
-.content-container-iframe { position: absolute; top: var(--header-h); left: 0; width: 100vw; height: calc(100vh - var(--header-h)); display: flex; flex-direction: row; overflow: auto; padding: 0 16px 16px 16px; }
-.iframe-container { width: 100%; height: 100%; border: none; }
-.work-in-progress { margin-top: 16px; margin-left: 16px; font-size: 14px; color: #fff; text-align: center; }
-
-/* ===== Separate overlay PDF viewer ===== */
-#overlay-viewer {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 3000;
-    background: rgba(0,0,0,0.85);
-}
-#overlay-viewer.show { display: block; }
-.overlay-inner {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 4vh 3vw;
-}
-.overlay-toolbar {
-    width: min(92vw, calc((100vh - 8vh - 56px) * 16 / 9));
-    height: 50px;
-    background: rgba(255,255,255,0.06);
-    border-radius: var(--radius);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 8px;
-}
-.overlay-toolbar .left, .overlay-toolbar .right { display: flex; align-items: center; gap: 8px; height: 100%; }
-.overlay-canvas-box {
-    width: min(92vw, calc((100vh - 8vh - 56px) * 16 / 9));
-    aspect-ratio: 16 / 9;
-    background: #000;
-    border-radius: var(--radius);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.overlay-canvas-box canvas { width: 100%; height: auto; display: block; }

@@ -10,7 +10,7 @@
 
 
 
-<body class="portfolio-page">
+<body>
 
     <!-- Loading Indicator -->
     <div id="loading-indicator" style="display: none;">Loading...Please Wait :]</div>
@@ -39,40 +39,11 @@
     <!-- end of side bar-->
 
 
-    <main class="content-container">
-
-        <div class="portfolio-container">
-            
-            <div class="pdf-viewer-box">
-                <!-- PDF Viewer Content Goes Here -->
-                <canvas class="pdf-viewer" id="pdf-render"></canvas>
-            </div>
-
-            <div class="pdf-control-bar">
-                    <!-- Left Section -->
-                <div class="left-section">
-                    <button class="control-button" id="download-pdf" title="Download PDF">
-                        <span>Download&nbsp;</span> ⤓ </button>
-                </div>
-
-                    <!-- Right Section -->
-                <div class="right-section">
-                    <span class="page-info"> Page <span id="page-num">
-                    </span> of <span id="page-count"></span>
-                    </span>
-                    <button class="control-button" id="prev-page" title="Previous Page">←</button>
-                    <button class="control-button" id="next-page" title="Next Page">→</button>
-                    <button class="control-button" id="fullscreen-btn" title="Fullscreen">⛶</button>
-                </div>
-            </div>
-                    
-        </div>
-    
+    <main class="content-container-iframe">
+        <iframe class="iframe-container" src="../pdfs/portfolio.pdf" type="application/pdf" title="Architecture portfolio PDF"></iframe>
     </main>
-    
-    <script src="../js/pdf.mjs"></script>
+
     <script src="../script.js"></script>
-    <script type="module" src="../js/main.js"></script>
 
 </body>
 </html>
