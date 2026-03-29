@@ -155,10 +155,17 @@ img {
     cursor: pointer;
 }
 
+/* Child Grid Link */
+.grid-item-child-link {
+    color: inherit;
+    text-decoration: none;
+}
+
 /* Child Grid Image */
 .grid-item-child-image {
     width: 100%;
     height: auto;
+    border: 1px solid #8000ff;
     border-radius: 0.6vh;
     display: block;
 }
