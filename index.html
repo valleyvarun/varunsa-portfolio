@@ -31,29 +31,29 @@
             <!-- Grid Item 2 -->
             <div class="grid-item grid-item-2">
                 <!-- PDF Viewer -->
-                <div class="pdf-viewer">
+                <div class="pdf-viewer" data-pdf-viewer data-pdf-url="pdfs/project-covers-modified.pdf" data-slideshow="true" data-slideshow-order="2">
                     <!-- PDF Viewer Header -->
                     <div class="pdf-viewer-header">
                         <!-- PDF Viewer Controls -->
                         <div class="pdf-viewer-controls">
                             <!-- Previous Page Button -->
-                            <button type="button" id="pdf-prev" class="pdf-viewer-button" aria-label="Previous Page">&lt;</button>
+                            <button type="button" class="pdf-viewer-button" data-role="prev" aria-label="Previous Page">&lt;</button>
 
                             <!-- Page Info -->
-                            <div class="pdf-viewer-page-info"><span id="pdf-page-num">1</span> / <span id="pdf-page-count">0</span></div>
+                            <div class="pdf-viewer-page-info"><span data-role="page-num">1</span> / <span data-role="page-count">0</span></div>
 
                             <!-- Next Page Button -->
-                            <button type="button" id="pdf-next" class="pdf-viewer-button" aria-label="Next Page">&gt;</button>
+                            <button type="button" class="pdf-viewer-button" data-role="next" aria-label="Next Page">&gt;</button>
                         </div>
 
                         <!-- Fullscreen Button -->
-                        <button type="button" id="pdf-fullscreen" class="pdf-viewer-button" aria-label="Open Fullscreen">⛶</button>
+                        <button type="button" class="pdf-viewer-button" data-role="fullscreen" aria-label="Open Fullscreen">⛶</button>
                     </div>
 
                     <!-- PDF Viewer Body -->
-                    <div class="pdf-viewer-body" id="pdf-viewer-body">
+                    <div class="pdf-viewer-body" data-role="viewer-body">
                         <!-- PDF Canvas -->
-                        <canvas id="pdf-canvas" class="pdf-canvas"></canvas>
+                        <canvas class="pdf-canvas" data-role="canvas"></canvas>
                     </div>
                 </div>
             </div>
@@ -95,7 +95,34 @@
             </div>
 
             <!-- Grid Item 5 -->
-            <div class="grid-item grid-item-5">Grid Item 5</div>
+            <div class="grid-item grid-item-5">
+                <!-- PDF Viewer -->
+                <div class="pdf-viewer" data-pdf-viewer data-pdf-url="pdfs/cdp-project-covers.pdf" data-slideshow="true" data-slideshow-order="1">
+                    <!-- PDF Viewer Header -->
+                    <div class="pdf-viewer-header">
+                        <!-- PDF Viewer Controls -->
+                        <div class="pdf-viewer-controls">
+                            <!-- Previous Page Button -->
+                            <button type="button" class="pdf-viewer-button" data-role="prev" aria-label="Previous Page">&lt;</button>
+
+                            <!-- Page Info -->
+                            <div class="pdf-viewer-page-info"><span data-role="page-num">1</span> / <span data-role="page-count">0</span></div>
+
+                            <!-- Next Page Button -->
+                            <button type="button" class="pdf-viewer-button" data-role="next" aria-label="Next Page">&gt;</button>
+                        </div>
+
+                        <!-- Fullscreen Button -->
+                        <button type="button" class="pdf-viewer-button" data-role="fullscreen" aria-label="Open Fullscreen">⛶</button>
+                    </div>
+
+                    <!-- PDF Viewer Body -->
+                    <div class="pdf-viewer-body" data-role="viewer-body">
+                        <!-- PDF Canvas -->
+                        <canvas class="pdf-canvas" data-role="canvas"></canvas>
+                    </div>
+                </div>
+            </div>
 
             <!-- Grid Item 6 -->
             <div class="grid-item grid-item-6">
