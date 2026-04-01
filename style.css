@@ -170,6 +170,16 @@ img {
     border: 1px solid #8000ff;
     border-radius: 0.6vh;
     display: block;
+    transition: transform 180ms ease, box-shadow 180ms ease;
+    transform-origin: center center;
+}
+
+.grid-item-child-link:hover .grid-item-child-image,
+.grid-item-child-link:focus-visible .grid-item-child-image,
+.grid-item-child-pdf:hover .grid-item-child-image,
+.grid-item-child-pdf:focus-visible .grid-item-child-image {
+    transform: translateY(-0.4vh) scale(1.03);
+    box-shadow: 0 1vh 2.4vh rgba(128, 0, 255, 0.28);
 }
 
 /* Child Grid Text */
