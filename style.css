@@ -445,6 +445,7 @@ img {
     display: block;
 }
 
+
 /* Tablet */
 @media (min-width: 601px) and (max-width: 1100px) {
     /* Tablet Variables */

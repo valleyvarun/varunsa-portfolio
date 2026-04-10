@@ -1,19 +1,53 @@
 // Initialization
 const profileText = document.getElementById('profile-text');
+const textContentTargets = document.querySelectorAll('[data-text-src]');
 const pdfThumbnailItems = document.querySelectorAll('.grid-item-child-pdf');
 const browserPdfPopup = document.getElementById('browser-pdf-popup');
 const browserPdfFrame = document.getElementById('browser-pdf-frame');
 const browserPdfTitle = document.getElementById('browser-pdf-title');
 const browserPdfClose = document.getElementById('browser-pdf-close');
 
-if (profileText) {
-	fetch('assets/profile-para.txt')
+function loadTextContent(target, url) {
+	fetch(url)
 		.then(function (response) {
 			return response.text();
 		})
 		.then(function (text) {
-			profileText.textContent = text;
+			if (target.dataset.textFormat === 'paragraphs') {
+				target.replaceChildren();
+
+				text
+					.split(/\r?\n\s*\r?\n|\r?\n/)
+					.map(function (paragraph) {
+						return paragraph.trim();
+					})
+					.filter(function (paragraph) {
+						return paragraph.length > 0;
+					})
+					.forEach(function (paragraph) {
+						const paragraphElement = document.createElement('p');
+						paragraphElement.textContent = paragraph;
+						target.appendChild(paragraphElement);
+					});
+				return;
+			}
+
+			target.textContent = text;
 		});
+}
+
+if (profileText) {
+	loadTextContent(profileText, 'assets/profile-para.txt');
+}
+
+textContentTargets.forEach(function (target) {
+	if (target.dataset.textSrc) {
+		loadTextContent(target, target.dataset.textSrc);
+	}
+});
+
+if (profileText && profileText.dataset.textSrc) {
+	loadTextContent(profileText, profileText.dataset.textSrc);
 }
 
 function openBrowserPdfPopup(pdfUrl, pdfTitle) {
