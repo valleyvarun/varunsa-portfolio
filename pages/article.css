@@ -48,6 +48,10 @@
 	text-indent: 2em;
 }
 
+.text-body p + p {
+	margin-top: 1.2em;
+}
+
 .article-text-large {
 	font-size: clamp(12px, calc(0.45vw + 1.15vh), 28px);
 }
