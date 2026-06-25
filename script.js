@@ -95,3 +95,41 @@ if (browserPdfPopup) {
 		}
 	});
 }
+
+const multiLinkItems = document.querySelectorAll('[data-multi-links]');
+
+function openMultiLinks(item) {
+	const urls = (item.dataset.multiLinks || '')
+		.split(',')
+		.map(function (url) {
+			return url.trim();
+		})
+		.filter(function (url) {
+			return url.length > 0;
+		});
+
+	urls.forEach(function (url) {
+		window.open(url, '_blank', 'noopener,noreferrer');
+	});
+}
+
+multiLinkItems.forEach(function (item) {
+	item.addEventListener('click', function (event) {
+		if (event.target.closest('a')) {
+			return;
+		}
+
+		openMultiLinks(item);
+	});
+
+	item.addEventListener('keydown', function (event) {
+		if (event.target.closest('a')) {
+			return;
+		}
+
+		if (event.key === 'Enter' || event.key === ' ') {
+			event.preventDefault();
+			openMultiLinks(item);
+		}
+	});
+});

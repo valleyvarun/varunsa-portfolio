@@ -169,6 +169,22 @@ img {
     cursor: pointer;
 }
 
+/* Multi-link Child Item */
+.grid-item-child-multi {
+    cursor: pointer;
+}
+
+/* Inline Link inside Child Text */
+.grid-item-child-inline-link {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.grid-item-child-inline-link:hover,
+.grid-item-child-inline-link:focus-visible {
+    color: #fff;
+}
+
 /* Child Grid Link */
 .grid-item-child-link {
     color: inherit;
