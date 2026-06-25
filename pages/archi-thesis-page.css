@@ -16,6 +16,27 @@
 	text-overflow: ellipsis;
 }
 
+/* Title + Download Group */
+.thesis-title-group {
+	display: flex;
+	align-items: center;
+	gap: 0.8vw;
+	min-width: 0;
+}
+
+/* Download Button */
+.thesis-download-button {
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+}
+
+.thesis-download-button:hover,
+.thesis-download-button:focus-visible {
+	background-color: #fff;
+	color: #000;
+}
+
 @media (max-width: 600px) {
 	.thesis-pdf-title {
 		display: none;
