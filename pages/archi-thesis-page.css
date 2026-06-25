@@ -1,0 +1,23 @@
+/* Thesis Viewer Page */
+.thesis-viewer-page {
+	width: calc(100% - 4vw);
+	height: calc(100vh - var(--header-height) - 4vh);
+	height: calc(100dvh - var(--header-height) - 4vh);
+	margin: 2vh 2vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Thesis PDF Title */
+.thesis-pdf-title {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+@media (max-width: 600px) {
+	.thesis-pdf-title {
+		display: none;
+	}
+}

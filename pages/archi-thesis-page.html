@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Architecture Thesis Project 2025</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="../style.css">
+	<link rel="stylesheet" href="archi-thesis-page.css">
+</head>
+<body>
+	<!-- ========= Header ========= -->
+	<header class="site-header">
+		<a href="../index.html" class="logo">
+			<img src="../images/logo psd.png" alt="VSA Logo">
+		</a>
+	</header>
+
+	<!-- ========= Thesis PDF Viewer ========= -->
+	<main class="thesis-viewer-page">
+		<div class="pdf-viewer thesis-pdf-viewer" data-pdf-viewer>
+			<!-- Viewer Header -->
+			<div class="pdf-viewer-header">
+				<!-- Controls -->
+				<div class="pdf-viewer-controls">
+					<button type="button" class="pdf-viewer-button" data-role="prev" aria-label="Previous Page">&lt;</button>
+					<div class="pdf-viewer-page-info"><span data-role="page-num">1</span> / <span data-role="page-count">0</span></div>
+					<button type="button" class="pdf-viewer-button" data-role="next" aria-label="Next Page">&gt;</button>
+				</div>
+
+				<!-- Title -->
+				<div class="pdf-viewer-page-info thesis-pdf-title">Architecture Thesis Project 2025</div>
+			</div>
+
+			<!-- Viewer Body -->
+			<div class="pdf-viewer-body" data-role="viewer-body">
+				<canvas class="pdf-canvas" data-role="canvas"></canvas>
+			</div>
+		</div>
+	</main>
+
+	<!-- ========= Scripts ========= -->
+	<script type="module" src="archi-thesis-page.js"></script>
+</body>
+</html>
