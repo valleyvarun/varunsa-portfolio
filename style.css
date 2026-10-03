@@ -293,6 +293,18 @@ img {
     display: block;
 }
 
+.pdf-video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.pdf-canvas[hidden],
+.pdf-video[hidden] {
+    display: none;
+}
+
 /* Browser PDF Body */
 .pdf-browser-viewer-body {
     width: 100%;

@@ -72,7 +72,7 @@
                     </div>
 
                     <!-- Child Item 2 -->
-                    <a href="https://valleyvarun.github.io/training-synthetic-mind/" target="_blank" rel="noreferrer" class="grid-item-child grid-item-child-link">
+                    <a href="https://valleyvarun.github.io/drawing-intelligence/" target="_blank" rel="noreferrer" class="grid-item-child grid-item-child-link">
                         <!-- Child Grid Image -->
                         <img src="images/harold-purple-cover-1.png" alt="Harold Purple Cover" class="grid-item-child-image">
 
@@ -157,7 +157,7 @@
             <!-- Grid Item 6 -->
             <div class="grid-item grid-item-6">
                 <!-- PDF Viewer -->
-                <div class="pdf-viewer" data-pdf-viewer data-pdf-url="pdfs/cdp-project-covers.pdf" data-slideshow="true" data-slideshow-order="1">
+                <div class="pdf-viewer" data-pdf-viewer data-pdf-url="pdfs/cdp-project-covers.pdf" data-slideshow-order="1">
                     <!-- PDF Viewer Header -->
                     <div class="pdf-viewer-header">
                         <!-- PDF Viewer Controls -->
@@ -178,8 +178,9 @@
 
                     <!-- PDF Viewer Body -->
                     <div class="pdf-viewer-body" data-role="viewer-body">
+                        <video class="pdf-video" data-role="video" src="videos/omniverse-app-demo-spedup.mp4" autoplay loop muted playsinline aria-label="Omniverse app demo"></video>
                         <!-- PDF Canvas -->
-                        <canvas class="pdf-canvas" data-role="canvas"></canvas>
+                        <canvas class="pdf-canvas" data-role="canvas" hidden></canvas>
                     </div>
                 </div>
             </div>
@@ -254,6 +255,7 @@
             <div class="pdf-viewer-body" id="pdf-popup-body">
                 <!-- PDF Popup Canvas -->
                 <canvas id="pdf-popup-canvas" class="pdf-canvas"></canvas>
+                <video id="pdf-popup-video" class="pdf-video" loop muted playsinline aria-label="Omniverse app demo" hidden></video>
             </div>
         </div>
     </div>
