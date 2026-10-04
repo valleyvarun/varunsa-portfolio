@@ -26,7 +26,7 @@ let activePopupViewer = null;
 let autoplaySequenceCancelled = false;
 
 function createViewerState(root) {
-	const video = root.querySelector('[data-role="video"]');
+	const videos = Array.from(root.querySelectorAll('[data-role="video"]'));
 
 	return {
 		root: root,
@@ -40,12 +40,13 @@ function createViewerState(root) {
 		pageCount: root.querySelector('[data-role="page-count"]'),
 		viewerBody: root.querySelector('[data-role="viewer-body"]'),
 		canvas: root.querySelector('[data-role="canvas"]'),
-		video: video,
+		videos: videos,
 		pdfDocument: null,
-		currentPage: video ? 0 : 1,
+		currentPage: 1 - videos.length,
 		renderRequestId: 0,
 		slideshowTimeoutId: null,
-		slideshowPagesRemaining: 0
+		slideshowPagesRemaining: 0,
+		onVideoEnded: null
 	};
 }
 
@@ -56,6 +57,7 @@ function stopAutoplaySequence() {
 	viewers.forEach(function (viewer) {
 		clearSlideshowTimer(viewer);
 		viewer.slideshowPagesRemaining = 0;
+		viewer.onVideoEnded = null;
 	});
 }
 
@@ -80,6 +82,10 @@ function clearSlideshowTimer(viewer) {
 function runSlideshowStep(viewer, onComplete) {
 	clearSlideshowTimer(viewer);
 
+	if (getCurrentVideo(viewer)) {
+		return;
+	}
+
 	if (!viewer.pdfDocument || viewer.slideshowPagesRemaining <= 0 || viewer.currentPage >= viewer.pdfDocument.numPages) {
 		if (onComplete) {
 			onComplete();
@@ -103,14 +109,22 @@ function runSlideshowStep(viewer, onComplete) {
 
 function startSlideshow(viewer) {
 	return new Promise(function (resolve) {
-		if (!viewer.autoplay || !viewer.pdfDocument || viewer.pdfDocument.numPages <= 1 || autoplaySequenceCancelled) {
+		if (!viewer.autoplay || !viewer.pdfDocument || autoplaySequenceCancelled) {
 			resolve();
 			return;
 		}
 
 		clearSlideshowTimer(viewer);
-		viewer.currentPage = 1;
+		viewer.currentPage = 1 - viewer.videos.length;
 		viewer.slideshowPagesRemaining = viewer.pdfDocument.numPages - 1;
+		viewer.onVideoEnded = function () {
+			viewer.currentPage += 1;
+			renderPage(viewer);
+			runSlideshowStep(viewer, resolve);
+		};
+		viewer.videos.forEach(function (video) {
+			video.currentTime = 0;
+		});
 		renderPage(viewer);
 		runSlideshowStep(viewer, resolve);
 	});
@@ -241,13 +255,17 @@ function renderToCanvas(page, targetCanvas, container) {
 }
 
 // Page Rendering
+function getCurrentVideo(viewer) {
+	return viewer.videos[viewer.currentPage + viewer.videos.length - 1] || null;
+}
+
 function updatePageInfo(viewer) {
 	if (!viewer.pdfDocument || !viewer.pageNum || !viewer.pageCount) {
 		return;
 	}
 
-	const pageNumber = viewer.currentPage + (viewer.video ? 1 : 0);
-	const pageCount = viewer.pdfDocument.numPages + (viewer.video ? 1 : 0);
+	const pageNumber = viewer.currentPage + viewer.videos.length;
+	const pageCount = viewer.pdfDocument.numPages + viewer.videos.length;
 	viewer.pageNum.textContent = String(pageNumber);
 	viewer.pageCount.textContent = String(pageCount);
 
@@ -264,9 +282,12 @@ function updateVideoPlayback(video, visible) {
 
 	video.hidden = !visible;
 	if (visible) {
+		if (video.ended) {
+			video.currentTime = 0;
+		}
 		if (video.paused) {
 			video.play().catch(function (error) {
-				console.error('Unable to play the Omniverse app demo:', error);
+				console.error('Unable to play the project demo:', error);
 			});
 		}
 	} else {
@@ -279,16 +300,22 @@ function renderPage(viewer) {
 		return;
 	}
 
-	const showingVideo = Boolean(viewer.video && viewer.currentPage === 0);
+	const video = getCurrentVideo(viewer);
+	const showingVideo = Boolean(video);
 	const popupOpen = activePopupViewer === viewer && popup.classList.contains('is-open');
 	viewer.canvas.hidden = showingVideo;
-	updateVideoPlayback(viewer.video, showingVideo && !popupOpen);
-	// Keep the inline video visible while playback moves to the fullscreen viewer.
-	if (viewer.video) {
-		viewer.video.hidden = !showingVideo;
-	}
+	viewer.videos.forEach(function (inlineVideo) {
+		updateVideoPlayback(inlineVideo, inlineVideo === video && !popupOpen);
+		// Keep the inline video visible while playback moves to the fullscreen viewer.
+		inlineVideo.hidden = inlineVideo !== video;
+	});
 	if (popupOpen) {
 		popupCanvas.hidden = showingVideo;
+		if (video && popupVideo.src !== video.src) {
+			popupVideo.src = video.src;
+			popupVideo.currentTime = video.currentTime;
+			popupVideo.setAttribute('aria-label', video.getAttribute('aria-label'));
+		}
 		updateVideoPlayback(popupVideo, showingVideo);
 	}
 
@@ -323,7 +350,7 @@ function showPreviousPage(viewer) {
 	}
 
 	continueAutoplaySequenceAfter(viewer);
-	const firstPage = viewer.video ? 0 : 1;
+	const firstPage = 1 - viewer.videos.length;
 	if (viewer.currentPage <= firstPage) {
 		viewer.currentPage = viewer.pdfDocument.numPages;
 	} else {
@@ -339,7 +366,7 @@ function showNextPage(viewer) {
 
 	continueAutoplaySequenceAfter(viewer);
 	if (viewer.currentPage >= viewer.pdfDocument.numPages) {
-		viewer.currentPage = viewer.video ? 0 : 1;
+		viewer.currentPage = 1 - viewer.videos.length;
 	} else {
 		viewer.currentPage += 1;
 	}
@@ -348,9 +375,11 @@ function showNextPage(viewer) {
 
 // Popup Controls
 function openPopup(viewer) {
-	if (viewer.video && popupVideo) {
-		popupVideo.src = viewer.video.currentSrc || viewer.video.src;
-		popupVideo.currentTime = viewer.video.currentTime;
+	const video = getCurrentVideo(viewer);
+	if (video && popupVideo) {
+		popupVideo.src = video.src;
+		popupVideo.currentTime = video.currentTime;
+		popupVideo.setAttribute('aria-label', video.getAttribute('aria-label'));
 	}
 	activePopupViewer = viewer;
 	popup.classList.add('is-open');
@@ -360,8 +389,9 @@ function openPopup(viewer) {
 
 function closePopup() {
 	const viewer = activePopupViewer;
-	if (viewer && viewer.video && popupVideo && viewer.currentPage === 0) {
-		viewer.video.currentTime = popupVideo.currentTime;
+	const video = viewer && getCurrentVideo(viewer);
+	if (video && popupVideo) {
+		video.currentTime = popupVideo.currentTime;
 	}
 	updateVideoPlayback(popupVideo, false);
 	popup.classList.remove('is-open');
@@ -406,7 +436,15 @@ if (viewers.length > 0 && popup && popupCanvas && popupBody) {
 			openPopup(viewer);
 		});
 
-		if (viewer.video) {
+		viewer.videos.forEach(function (video) {
+			video.addEventListener('ended', function () {
+				if (getCurrentVideo(viewer) === video && activePopupViewer !== viewer && viewer.onVideoEnded) {
+					viewer.onVideoEnded();
+				}
+			});
+		});
+
+		if (viewer.videos.length > 0) {
 			renderPage(viewer);
 		}
 	});
@@ -419,7 +457,7 @@ if (viewers.length > 0 && popup && popupCanvas && popupBody) {
 
 			return loadPdfDocument(viewer.pdfUrl).then(function (pdf) {
 				viewer.pdfDocument = pdf;
-				viewer.currentPage = viewer.video ? 0 : 1;
+				viewer.currentPage = 1 - viewer.videos.length;
 				renderPage(viewer);
 			});
 		})
@@ -441,9 +479,15 @@ if (viewers.length > 0 && popup && popupCanvas && popupBody) {
 
 	popupCloseButton.addEventListener('click', closePopup);
 
+	popupVideo.addEventListener('ended', function () {
+		if (activePopupViewer && getCurrentVideo(activePopupViewer) && activePopupViewer.onVideoEnded) {
+			activePopupViewer.onVideoEnded();
+		}
+	});
+
 	window.addEventListener('resize', function () {
 		viewers.forEach(function (viewer) {
-			if (viewer.pdfDocument || viewer.video) {
+			if (viewer.pdfDocument || viewer.videos.length > 0) {
 				scheduleRender(viewer);
 			}
 		});
